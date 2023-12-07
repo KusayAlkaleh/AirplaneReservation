@@ -28,21 +28,13 @@ namespace WebProject.Controllers
 		[HttpPost]
         public async Task<IActionResult> Register(User model)
         {
-            var newUser = new User()
+            
+            if ( model != null)
             {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Email,
-                PhoneNumber = model.PhoneNumber,
-                Gender = model.Gender,
-                ClassType = model.ClassType,
-                Password = model.Password,
-				BirthDay = model.BirthDay,
-			};
+				await DemoDbContext.Users.AddAsync(model);
+				await DemoDbContext.SaveChangesAsync();
 
-			await DemoDbContext.Users.AddAsync(newUser);
-			await DemoDbContext.SaveChangesAsync();
-
+			}
 			return RedirectToAction("Register");
         }
 
