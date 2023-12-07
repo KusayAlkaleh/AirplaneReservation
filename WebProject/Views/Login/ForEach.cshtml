@@ -1,0 +1,95 @@
+﻿<div class="container">
+	<div class="form-wrap">	
+		<div class="text-center imgCon">
+			<img src="~/assets/jaguar.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+				 width="200px" alt="profile">
+		</div>
+
+		<form id="survey-form">	
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label id="name-label" for="name">First Name</label>
+						<input type="text" name="firstName" placeholder="Enter your firt name*" class="form-control" required>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label id="email-label" for="email">Last Name</label>
+						<input type="text" name="lastName" placeholder="Enter your last name*" class="form-control" required>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="email">Email</label>
+						<input type="email" class="form-control" placeholder="Enter your email*">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label >Phone Number</label>
+						<input type="tel" class="form-control" placeholder="Enter your Number*">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Birth Day</label>
+						<input type="date" class="form-control" placeholder="Enter your birth day*">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Password</label>
+						<input type="password" class="form-control" placeholder="Enter your password*">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Select your Gender</label>
+						<div class="custom-control custom-radio custom-control-inline ps-2">
+							<input type="radio" id="customRadioInline1" value="Definitely" name="customRadioInline1" class="custom-control-input">
+							<label class="custom-control-label" for="customRadioInline1">Female</label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline ps-2">
+							<input type="radio" id="customRadioInline2" value="Maybe" name="customRadioInline1" class="custom-control-input">
+							<label class="custom-control-label" for="customRadioInline2">Male</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Select your Class type</label>
+						<select class="form-control">
+							<option selected >Select</option>
+							<option value="economy">Economy</option>
+							<option value="business">Business</option>
+							<option value="first">First</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<div class="custom-control custom-radio custom-control-inline ps-2">
+							<input type="checkbox" class="custom-control-input">
+							<label class="custom-control-label" for="customRadioInline1">
+								I agree all statements in <span class="text-primary">Terms of service</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<button type="submit" class="mainBtn mb-2">Register</button>
+				</div>	
+				<div class="col-md-4">
+					<button type="reset" class="mainBtn bg-secondary">Reset</button>
+				</div>
+							
+			</div>
+		</form>
+	</div>	
+</div>

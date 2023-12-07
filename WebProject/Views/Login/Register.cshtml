@@ -1,0 +1,98 @@
+﻿@model WebProject.Models.Domain.User;
+
+<div class="container">
+	<div class="form-wrap">
+		<div class="text-center imgCon">
+			<img src="~/assets/jaguar.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+				 width="200px" alt="profile">
+		</div>
+
+		<form id="survey-form" method="post" asp-action="Register">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label asp-for="FirstName" class="control-label">First Name</label>
+						<input asp-for="FirstName" type="text" name="firstName" placeholder="Enter your firt name*" class="form-control">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label asp-for="LastName">Last Name</label>
+						<input asp-for="LastName" type="text" name="lastName" placeholder="Enter your last name*" class="form-control">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label asp-for="Email" >Email</label>
+						<input asp-for="Email" type="email" class="form-control" placeholder="Enter your email*">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label asp-for="PhoneNumber" >Phone Number</label>
+						<input asp-for="PhoneNumber" type="text" class="form-control" placeholder="Enter your Number*">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label asp-for="BirthDay" >Birth Day</label>
+						<input asp-for="BirthDay" type="date" class="form-control" placeholder="Enter your birth day*">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label asp-for="Password" >Password</label>
+						<input asp-for="Password" type="password" class="form-control" placeholder="Enter your password*">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label asp-for="Gender" >Select your Gender</label>
+						<select asp-for="Gender" class="form-select">
+							<option selected>Select</option>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label asp-for="ClassType" >Select your Class type</label>
+						<select asp-for="ClassType" class="form-select">
+							<option selected>Select</option>
+							<option value="economy">Economy</option>
+							<option value="business">Business</option>
+							<option value="first">First</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<div class="custom-control custom-radio custom-control-inline ps-2">
+							<input type="checkbox" class="custom-control-input">
+							<label class="custom-control-label" for="customRadioInline1">
+								I agree all statements in <span class="text-primary">Terms of service</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<button type="submit" class="mainBtn mb-2">Register</button>
+				</div>
+				<div class="col-md-4">
+					<button type="reset" class="mainBtn bg-secondary">Reset</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
