@@ -13,10 +13,24 @@ namespace WebProject.Controllers
 			this.DemoDbContext = mvcDemoDbContext;
 		}
 
+        [HttpGet]
 		public IActionResult Index()
         {
             return View();
         }
+
+        [HttpPost]
+		public IActionResult Index(User model)
+		{
+            var user = DemoDbContext.Users.Where(x => x.Id == model.Id && x.Password == model.Password);
+
+            if( user != null)
+            {
+
+            }
+
+			return View();
+		}
 
 		[HttpGet]
 		public  IActionResult Register()

@@ -187,6 +187,8 @@ footer .links ul li {
 }
 /* End Footer */
 
+
+/*Start Register*/
 .profile-image-pic {
     height: 200px;
     width: 200px;
@@ -236,3 +238,154 @@ footer .links ul li {
     color: #212529;
     font-size: 16px;
 }
+/*End Register*/
+
+
+/*Start Profile*/
+.profile-container {
+    margin: 35px 0;
+    border-radius: none;
+    
+
+}
+
+.profile-container .btn-update {
+    color: white;
+    background-color: var(--red-color)
+}
+
+.profile-header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    justify-items: center;
+    color: white;
+}
+
+.profile-header svg {
+    color: var(--green-color);
+    font-size: 20px;
+    position: relative;
+    align-items: center;
+    display: flex;
+}
+
+.account-settings .user-profile {
+    margin: 0 0 1rem 0;
+    text-align: center;
+}
+
+.account-settings .user-profile h5 {
+    font-size: 25px;
+}
+
+.account-settings .user-profile .user-avatar {
+    margin: 0 0 1rem 0;
+}
+
+.account-settings .user-profile .user-avatar img {
+    width: 90px;
+    height: 90px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+}
+
+.account-settings .about {
+    text-align: center;
+}
+
+.account-settings .about h5 {
+    margin-bottom: 10px;
+    color: #007ae1;
+    font-size: 20px;
+}
+
+.account-settings .about p {
+    font-size: 14px;
+}
+
+.card .card-body {
+    background: #ebf2fa;
+}
+
+.card .card-header {
+    font-weight: 500;
+    background-color: var(--dark-color);
+}
+
+.card-header:first-child {
+    border-radius: 0.35rem 0.35rem 0 0;
+}
+
+.card-header {
+    padding: 1rem 1.35rem;
+    margin-bottom: 0;
+    background-color: rgba(33, 40, 50, 0.03);
+    border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+}
+
+
+.nav-borders .nav-link.active {
+    color: #0061f2;
+    border-bottom-color: #0061f2;
+}
+
+.nav-borders .nav-link {
+    color: #69707a;
+    border-bottom-width: 0.125rem;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+/*End Profile*/
+
+/*Start ViewPage*/
+.avatar.sm {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: .818125rem;
+}
+
+.table-nowrap .table td, .table-nowrap .table th {
+    white-space: nowrap;
+}
+
+.table > :not(caption) > * > * {
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--green-color);
+}
+
+.table thead tr {
+    background-color: var(--dark-color);
+}
+
+.table th {
+    font-weight: 600;
+    color: white;
+    
+}
+
+tbody {
+    background-color: var(--section-color);
+}
+
+.dropdown-menu .view-btn:hover {
+    background-color: #3c8cbb;
+    color: white;
+    border-radius: 3px;
+}
+
+.dropdown-menu .delete-btn:hover {
+    background-color: #e7403e;
+    color: white;
+    border-radius: 3px;
+}
+/*legend ViewPage*/

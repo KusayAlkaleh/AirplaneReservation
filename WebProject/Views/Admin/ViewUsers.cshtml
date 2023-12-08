@@ -1,0 +1,187 @@
+﻿@model List<WebProject.Models.Domain.User>;
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-4 mb-4">
+            <div class="overflow-hidden card table-nowrap table-card">
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead class="small text-uppercase bg-body text-muted">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Password</th>
+                                <th>Class Type</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model)
+                            {
+                                var urlImg = "";
+                                if (user.Gender == 0)
+                                    urlImg = "https://bootdey.com/img/Content/avatar/avatar1.png";
+                                else
+                                    urlImg = "https://bootdey.com/img/Content/avatar/avatar3.png";
+
+                                <tr class="align-middle">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src=@urlImg class="avatar sm rounded-pill me-3 flex-shrink-0" alt="Customer">
+                                            <div>
+                                                <div class="h6 mb-0 lh-1">@user.FirstName @user.LastName</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>@user.Email</td>
+                                    <td> <span class="d-inline-block align-middle">
+                                            @{
+                                                var gender = "";
+                                                if (user.Gender == 0)
+                                                    gender = "Male";
+                                                else
+                                                    gender = "Female";
+                                            }
+                                            @gender
+                                        </span></td>
+                                    <td><span>@user.Password</span></td>
+                                    <td>
+                                        @{
+                                            var classType = "";
+                                            if (user.ClassType == 0)
+                                                classType = "Economy";
+                                            else if (user.ClassType == 1)
+                                                classType = "Business";
+                                            else
+                                                classType = "First";
+                                        }
+                                        @classType
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="drodown">
+                                            <a data-bs-toggle="dropdown" href="#" class="btn p-1" aria-expanded="false">
+                                                <i class="fa fa-bars" aria-hidden="true"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end" style="">
+                                                <a asp-controller="User" asp-action="Profile" class="dropdown-item view-btn">View Details</a>
+                                                <a href="#!" class="dropdown-item delete-btn">Delete user</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                            <tr class="align-middle">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="avatar sm rounded-pill me-3 flex-shrink-0" alt="Customer">
+                                        <div>
+                                            <div class="h6 mb-0 lh-1">Topias Kantola</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>topiaskantola@email.com</td>
+                                <td> <span class="d-inline-block align-middle">Brazil</span></td>
+                                <td><span>****mail.com</span></td>
+                                <td>21 Sep, 2021</td>
+                                <td class="text-center">
+                                    <div class="drodown">
+                                        <a data-bs-toggle="dropdown" href="#" class="btn p-1">
+                                            <i class="fa fa-bars" aria-hidden="true"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a href="#!" class="dropdown-item">View Details</a>
+                                            <a href="#!" class="dropdown-item">Delete user</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="align-middle">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="avatar sm rounded-pill me-3 flex-shrink-0" alt="Customer">
+                                        <div>
+                                            <div class="h6 mb-0 lh-1">Anaiah Whitten</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>anaiahwhitten@email.com</td>
+                                <td>
+                                    <span class="d-inline-block align-middle">Poland</span>
+                                </td>
+                                <td><span>****0014</span></td>
+                                <td>12 June, 2021</td>
+                                <td class="text-center">
+                                    <div class="drodown">
+                                        <a data-bs-toggle="dropdown" href="#" class="btn p-1">
+                                            <i class="fa fa-bars" aria-hidden="true"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a href="#!" class="dropdown-item">View Details</a>
+                                            <a href="#!" class="dropdown-item">Delete user</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="align-middle">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar4.png" class="avatar sm rounded-pill me-3 flex-shrink-0" alt="Customer">
+                                        <div>
+                                            <div class="h6 mb-0 lh-1">Wyatt Morris</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>wyattmorris@email.com</td>
+                                <td>
+                                    <span class="d-inline-block align-middle">Kenya</span>
+                                </td>
+                                <td><span>****8715</span></td>
+                                <td>04 June, 2021</td>
+                                <td class="text-center">
+                                    <div class="drodown">
+                                        <a data-bs-toggle="dropdown" href="#" class="btn p-1">
+                                            <i class="fa fa-bars" aria-hidden="true"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a href="#!" class="dropdown-item">View Details</a>
+                                            <a href="#!" class="dropdown-item">Delete user</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="align-middle">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar5.png" class="avatar sm rounded-pill me-3 flex-shrink-0" alt="Customer">
+                                        <div>
+                                            <div class="h6 mb-0 lh-1">Eliana Stout</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>elianastout@email.com</td>
+                                <td>
+                                    <span class="d-inline-block align-middle">Usa</span>
+                                </td>
+                                <td><span>****1010</span></td>
+                                <td>01 June, 2021</td>
+                                <td class="text-center">
+                                    <div class="drodown">
+                                        <a data-bs-toggle="dropdown" href="#" class="btn p-1">
+                                            <i class="fa fa-bars" aria-hidden="true"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a href="#!" class="dropdown-item view-btn">View Details</a>
+                                            <a href="#!" class="dropdown-item delete-btn">Delete user</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
