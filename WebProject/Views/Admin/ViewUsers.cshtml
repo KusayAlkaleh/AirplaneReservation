@@ -1,6 +1,5 @@
 ﻿@model List<WebProject.Models.Domain.User>;
 
-
 <div class="container">
     <div class="row">
         <div class="col-12 mt-4 mb-4">
@@ -20,52 +19,73 @@
                         <tbody>
                             @foreach (var user in Model)
                             {
-                                var urlImg = "";
-                                if (user.Gender == 0)
-                                    urlImg = "https://bootdey.com/img/Content/avatar/avatar1.png";
+                                // set image by gender
+                                string gender = "";
+                                if (user.Gender == 1)
+                                {
+                                    gender = "Male";
+                                }
+                                else if (user.Gender == 2)
+                                {
+                                    gender = "Female";
+                                }
                                 else
-                                    urlImg = "https://bootdey.com/img/Content/avatar/avatar3.png";
+                                {
+                                    gender = "Unknown";
+                                }
+
+                                // generate new Password
+                                string pass = user.Password;
+
+                                int charsToMask = Math.Max(0, pass.Length - 3);
+
+                                string newPassword = new string('*', charsToMask) + pass.Substring(charsToMask);
+
+                                // set a class type of user
+                                string classType = "", newColor = "";
+                                if (user.ClassType == 0)
+                                {
+                                    classType = "Economy";
+                                    newColor = "#5DADE2";
+
+                                }
+                                else if (user.ClassType == 1)
+                                {
+                                    classType = "Business";
+                                    newColor = "#2ECC71";
+                                    
+                                }
+                                else if (user.ClassType == 2)
+                                {
+                                    classType = "First";
+                                    newColor = "#FF6347";
+                                }
+
 
                                 <tr class="align-middle">
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src=@urlImg class="avatar sm rounded-pill me-3 flex-shrink-0" alt="Customer">
+                                            <img src=@user.ProfileImg class="avatar sm rounded-pill me-3 flex-shrink-0" alt="Customer">
                                             <div>
                                                 <div class="h6 mb-0 lh-1">@user.FirstName @user.LastName</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td>@user.Email</td>
-                                    <td> <span class="d-inline-block align-middle">
-                                            @{
-                                                var gender = "";
-                                                if (user.Gender == 0)
-                                                    gender = "Male";
-                                                else
-                                                    gender = "Female";
-                                            }
-                                            @gender
-                                        </span></td>
-                                    <td><span>@user.Password</span></td>
-                                    <td>
-                                        @{
-                                            var classType = "";
-                                            if (user.ClassType == 0)
-                                                classType = "Economy";
-                                            else if (user.ClassType == 1)
-                                                classType = "Business";
-                                            else
-                                                classType = "First";
-                                        }
-                                        @classType
+                                    <td> 
+                                        <span class="d-inline-block align-middle">@gender</span>
                                     </td>
+                                    <td>
+                                        <span>@newPassword</span>
+                                    </td>
+                                    <td style="color: @newColor; font-weight: bold;">@classType</td>
                                     <td class="text-center">
                                         <div class="drodown">
                                             <a data-bs-toggle="dropdown" href="#" class="btn p-1" aria-expanded="false">
                                                 <i class="fa fa-bars" aria-hidden="true"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end" style="">
-                                                <a asp-controller="User" asp-action="Profile" class="dropdown-item view-btn">View Details</a>
+                                                <a asp-controller="User" asp-action="Profile" asp-route-userId="@user.Id" class="dropdown-item view-btn">View Details</a>
                                                 <a href="#!" class="dropdown-item delete-btn">Delete user</a>
                                             </div>
                                         </div>
