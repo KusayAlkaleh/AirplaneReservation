@@ -30,6 +30,7 @@ namespace WebProject.Models.Domain
 
 		[Required(ErrorMessage = "Please select your class type!")]
 		public int ClassType { get; set; }
+        public string ProfileImg { get; set; }
 
-	}
+    }
 }
