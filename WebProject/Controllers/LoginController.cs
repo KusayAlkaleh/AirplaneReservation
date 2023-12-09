@@ -45,10 +45,19 @@ namespace WebProject.Controllers
             
             if ( model != null)
             {
-				await DemoDbContext.Users.AddAsync(model);
-				await DemoDbContext.SaveChangesAsync();
+                // set image for new user
+                if (model.Gender == 1)
+                    model.ProfileImg = "https://bootdey.com/img/Content/avatar/avatar7.png";
+                else if (model.Gender == 2)
+                    model.ProfileImg = "https://cdn-icons-png.flaticon.com/512/706/706830.png";
+                else
+                    model.ProfileImg = "https://cdn-icons-png.flaticon.com/512/3143/3143082.png";
 
-			}
+                // Adding new user to database
+                await DemoDbContext.Users.AddAsync(model);
+				await DemoDbContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
 			return RedirectToAction("Register");
         }
 

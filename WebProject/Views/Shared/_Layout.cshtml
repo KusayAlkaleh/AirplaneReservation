@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="~/css/all.min.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin asp-append-version="true"  />
+    <link rel="stylesheet"
+          href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:wght@100;300;400&display=swap"
           rel="stylesheet" asp-append-version="true" />
     
@@ -30,6 +32,9 @@
                             <a asp-controller="Admin" asp-action="ViewUsers" class="nav-link" aria-current="page">Users</a>
                         </li>
                         <li class="nav-item p-2 p-lg-3">
+                            <a asp-controller="Home" asp-action="Example" class="nav-link" aria-current="page">Example</a>
+                        </li>
+                        <li class="nav-item p-2 p-lg-3">
                             <a class="nav-link" >Services</a>
                         </li>
                         <li class="nav-item p-2 p-lg-3">
@@ -45,7 +50,7 @@
                     <div class="search ps-3 pe-3 d-none d-lg-block">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
-                    <a class="main-btn" asp-controller="Login" asp-action="Index">Login</a>
+                    <a class=" main-btn" asp-controller="Login" asp-action="Index">Login</a>
                 </div>
             </div>
         </nav>
@@ -127,8 +132,9 @@
             </div>
         </div>
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/bondi.js"></script>
     <script src="~/js/all.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -27,12 +27,9 @@
     border: none;
 }
 
-.mainBtn:hover {
-    color: var(--yellow-color);
-}
-
-.main-btn:hover {
-    color: var(--yellow-color);
+.mainBtn:hover, .main-btn:hover {
+    background-color: #dc3545;
+    color: white;
 }
 
 .main-title::after {
@@ -123,6 +120,16 @@ body {
     color: var(--yellow-color);
 }
 /*End Features*/
+
+/* Start Stuff */
+.stuff {
+    background-color: var(--section-color);
+}
+
+.stuff .description {
+    max-width: 500px;
+}
+/* End Stuff */
 
 /* Start Subscribe */
 .subscribe {
@@ -252,6 +259,11 @@ footer .links ul li {
 .profile-container .btn-update {
     color: white;
     background-color: var(--red-color)
+}
+
+.profile-container .btn-update:hover {
+    color: white;
+    background-color: #dc3545;
 }
 
 .profile-header {
@@ -389,3 +401,106 @@ tbody {
     border-radius: 3px;
 }
 /*legend ViewPage*/
+
+/*start toast message [PROFILE]*/
+.profile-toast {
+    position: absolute;
+    display: none;
+    top: 100px;
+    right: 30px;
+    border-radius: 6px;
+    background: #fff;
+    padding: 20px 35px 20px 25px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    border-left: 8px solid #40f467;
+    overflow: hidden;
+    z-index: 999;
+    transform: translateX(calc(100% + 30px));
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.25, 1.35);
+}
+
+.profile-toast.active {
+    transform: translateX(0);
+    display: block;
+}
+
+.toast-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.toast-content svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    width: 35px;
+    background-color: #40f467;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 20px;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+}
+
+.message-text {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.text-1 {
+    color: #333;
+}
+
+.text-2 {
+    color: #666;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.toast-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    padding: 5px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.toast-close:hover {
+    opacity: 1;
+}
+
+.profile-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    width: 100%;
+    background: #ddd;
+}
+
+.profile-progress::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #40f467;
+}
+
+.profile-progress.active::before {
+    animation: progress 5s linear forwards;
+}
+
+@keyframes progress {
+    100% {
+        right: 100%;
+    }
+}
+/*end toast message [PROFILE]*/

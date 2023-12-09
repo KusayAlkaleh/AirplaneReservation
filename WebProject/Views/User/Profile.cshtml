@@ -1,4 +1,45 @@
 ﻿@model WebProject.Models.Domain.User;
+@{
+    string classType = "", gender = "";
+    
+    if (Model.Gender == 1)
+    {
+        gender = "Male";
+    }
+    else if (Model.Gender == 2)
+    {
+        gender = "Female";
+    }
+    else
+    {
+        gender = "Unknown";
+    }
+
+
+    if (Model.ClassType == 0)
+        classType = "Economy";
+    else if (Model.ClassType == 1)
+        classType = "Business";
+    else if (Model.ClassType == 2)
+        classType = "First";
+}
+
+@if (ViewBag.msgForAlert == true)
+{
+    <div class="profile-toast">
+        <div class="toast-content">
+            <i class="fa-solid fa-check"></i>
+            <div class="message">
+                <span class="message-text text-1">Success</span>
+                <span class="message-text text-2">Your changes has been saved</span>
+            </div>
+        </div>
+        <i class="uil uil-multiply toast-close"></i>
+        <div class="profile-progress"></div>
+    </div>
+}
+
+
 
 <div class="container" >
     <div class="profile-container">
@@ -13,12 +54,12 @@
                     </div>
                     <div class="card-body text-center">
                         <div class="text-center">
-                            <img src="~/assets/panda.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+                            <img src=@Model.ProfileImg class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
                                  width="200px" alt="profile">
                         </div>
                         <div class="account-settings">
                             <div class="user-profile">
-                                <h5 class="user-name">@Model.FirstName @Model.LastName</h5>
+                                <h5 class="user-name">Hi, @Model.FirstName</h5>
                             </div>
                             <div class="about">
                                 <h5>About</h5>
@@ -37,48 +78,49 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form asp-controller="User" asp-action="Profile" method="post" >
                             <div class="mb-3">
+                                <input asp-for="Id" value="@Model.Id" type="hidden" />
                                 <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
                                 <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username">
                             </div>
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
-                                    <label class="small mb-1" for="inputFirstName">First name</label>
-                                    <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie">
+                                    <label asp-for="FirstName"  class="small mb-1" for="inputFirstName">First name</label>
+                                    <input asp-for="FirstName" class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="@Model.FirstName">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="small mb-1" for="inputLastName">Last name</label>
-                                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna">
+                                    <label asp-for="LastName" class="small mb-1" for="inputLastName">Last name</label>
+                                    <input asp-for="LastName" class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="@Model.LastName">
                                 </div>
                             </div>
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
-                                    <label class="small mb-1" for="inputOrgName">Organization name</label>
-                                    <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap">
+                                    <label asp-for="ClassType" class="small mb-1" for="inputOrgName">Class Type</label>
+                                    <input asp-for="ClassType" class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="@classType">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="small mb-1" for="inputLocation">Location</label>
-                                    <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="San Francisco, CA">
+                                    <label asp-for="Gender" class="small mb-1" for="inputLocation">Gender</label>
+                                    <input asp-for="Gender" class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="@gender">
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                                <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com">
+                                <label asp-for="Email" class="small mb-1" for="inputEmailAddress">Email address</label>
+                                <input asp-for="Email" class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="@Model.Email">
                             </div>
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
-                                    <label class="small mb-1" for="inputPhone">Phone number</label>
-                                    <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567">
+                                    <label asp-for="PhoneNumber" class="small mb-1" for="inputPhone">Phone number</label>
+                                    <input asp-for="PhoneNumber" class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="@Model.PhoneNumber">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="small mb-1" for="inputBirthday">Birthday</label>
-                                    <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988">
+                                    <label asp-for="BirthDay" class="small mb-1" for="inputBirthday">Birthday</label>
+                                    <input asp-for="BirthDay" class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="@Model.BirthDay.ToString("M/d/yyyy")">
                                 </div>
                             </div>
                             <div class="row justify-content-end d-flex ">
                                 <div class="col-md-4 justify-content-end d-flex mt-4">
-                                    <button type="reset" class="btn btn-secondary ms-1">Cancel</button>
+                                    <button asp-controller="Home" asp-action="Index" type="submit" class="btn btn-secondary ms-1">Cancel</button>
                                     <button type="submit" class="btn  ms-1 btn-update">Save Changes</button>
                                 </div>
                             </div>
