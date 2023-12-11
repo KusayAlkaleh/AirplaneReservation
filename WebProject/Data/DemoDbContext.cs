@@ -8,5 +8,9 @@ namespace WebProject.Data
         public DemoDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Plane> Planes { get; set; }
+        public DbSet<Seat> Seats { get; set; }
+        public DbSet<Airport> Airports { get; set; }
+        public DbSet<Flight> Flights { get; set; }
     }
 }
