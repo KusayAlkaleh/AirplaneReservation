@@ -1,4 +1,8 @@
-﻿@model List<WebProject.Models.Domain.User>;
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@model List<WebProject.Models.Domain.User>;
 
 <div class="container">
     <div class="row">
@@ -34,7 +38,7 @@
                                     gender = "Unknown";
                                 }
 
-                                // generate new Password
+                                // generate Password with hidden
                                 string pass = user.Password;
 
                                 int charsToMask = Math.Max(0, pass.Length - 3);
@@ -86,7 +90,7 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end" style="">
                                                 <a asp-controller="User" asp-action="Profile" asp-route-userId="@user.Id" class="dropdown-item view-btn">View Details</a>
-                                                <a href="#!" class="dropdown-item delete-btn">Delete user</a>
+                                                <a class="dropdown-item delete-btn" asp-controller="Admin" asp-action="Delete" asp-route-userId="@user.Id">Delete user</a>
                                             </div>
                                         </div>
                                     </td>
