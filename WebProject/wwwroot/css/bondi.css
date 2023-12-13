@@ -328,6 +328,10 @@ footer .links ul li {
     background-color: var(--dark-color);
 }
 
+.card .card-header h3 {
+    color: white;
+}
+
 .card-header:first-child {
     border-radius: 0.35rem 0.35rem 0 0;
 }
@@ -721,3 +725,52 @@ tbody {
     width: 100%;
     object-fit: cover;
 }
+
+/*start admin panel*/
+.admin-right-nav,
+.admin-left-nav {
+    background-color: var(--dark-color);
+}
+
+.admin-left-nav .brand-text {
+    color: white;
+}
+
+.admin-left-nav .brand-link {
+    border-bottom: 1px solid #ffffff70;
+}
+
+.nav-sidebar .nav-item > .nav-link,
+.nav-sidebar .nav-item > .nav-link p,
+.nav-sidebar .nav-item > .nav-link svg {
+    color: white;
+}
+
+.nav-sidebar .nav-item > .nav-link:hover {
+    background-color: var(--section-color);
+    border-radius: 5px;
+}
+
+.nav-sidebar .nav-item > .nav-link:hover p,
+.nav-sidebar .nav-item > .nav-link:hover svg {
+    color: var(--dark-color);
+}
+.card .card-footer {
+    background-color: var(--green-color);
+}
+
+.card-footer a,
+.card-footer a:hover {
+    color: white;
+}
+
+.clearfix .btn {
+    background-color: var(--red-color);
+    color: white;
+}
+
+.clearfix .btn:hover {
+    color: white;
+    background-color: #e12e49;
+}
+/*end admin panel*/
