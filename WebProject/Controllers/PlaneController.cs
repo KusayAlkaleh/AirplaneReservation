@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebProject.Data;
+using WebProject.Models;
 using WebProject.Models.Domain;
 
 namespace WebProject.Controllers
@@ -18,18 +21,25 @@ namespace WebProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+
+            ListObjectPlane model = new ListObjectPlane
+            {
+                ListOfPlanes = await DemoDbContext.Planes.ToListAsync()
+            };
+           
+
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Plane model)
+        public async Task<IActionResult> Create(ListObjectPlane model)
         {
-            if(model != null)
+            if(model.plane != null)
             {
                 // Adding to database
-                await DemoDbContext.Planes.AddAsync(model);
+                await DemoDbContext.Planes.AddAsync(model.plane);
                 await DemoDbContext.SaveChangesAsync();
 
                 // This message for alert Novigation
