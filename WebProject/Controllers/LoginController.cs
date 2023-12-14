@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebProject.Data;
 using WebProject.Models.Domain;
-using WebProject.Models.Enums;
 
 namespace WebProject.Controllers
 {
