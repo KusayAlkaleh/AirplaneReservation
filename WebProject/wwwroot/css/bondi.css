@@ -756,7 +756,7 @@ tbody {
     color: var(--dark-color);
 }
 .card .card-footer {
-    background-color: var(--green-color);
+    background-color: #33d1cc00;
 }
 
 .card-footer a,
