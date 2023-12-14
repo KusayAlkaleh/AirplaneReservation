@@ -222,7 +222,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item menu-open">
+                    <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
@@ -252,7 +252,7 @@
         <!-- /.sidebar -->
     </aside>
     
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="background-color: white;">
         <div class="container">
             <main role="main" class="pb-3">
                 @RenderBody()
@@ -260,13 +260,12 @@
         </div>
         <!-- /.content -->
     </div>
-
-    <!-- Jquery library -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery -->
+    <script src="~/plugins/jquery/jquery.min.js" asp-append-version="true" ></script>
     <!-- Scripts created by me-->
     <script src="~/js/bondi.js" asp-append-version="true"></script>
     <!-- Bootstrap 5 -->
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true" ></script>
     <!-- Bootstrap 5 -->
     <script src="~/js/all.min.js"></script>
     <!-- AdminLTE App -->
