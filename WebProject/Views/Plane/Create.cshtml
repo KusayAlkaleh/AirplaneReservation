@@ -1,7 +1,8 @@
 ﻿@{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
-@model WebProject.Models.Domain.Plane;
+@model WebProject.Models.ListObjectPlane;
+
 <style>
     .btn-update {
     color: white;
@@ -12,133 +13,19 @@
         color: white;
         background-color: #dc3545;
     }
-
-/*start toast message [PROFILE]*/
-.profile-toast {
-    position: absolute;
-    display: none;
-    top: 100px;
-    right: 30px;
-    border-radius: 6px;
-    background: #fff;
-    padding: 20px 35px 20px 25px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    border-left: 8px solid #40f467;
-    overflow: hidden;
-    z-index: 999;
-    transform: translateX(calc(100% + 30px));
-    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.25, 1.35);
-}
-
-    .profile-toast.active {
-        transform: translateX(0);
-        display: block;
-    }
-
-.toast-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-    .toast-content svg {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 35px;
-        width: 35px;
-        background-color: #40f467;
-        border-radius: 50%;
-        color: #fff;
-        font-size: 20px;
-    }
-
-.message {
-    display: flex;
-    flex-direction: column;
-    margin: 0 20px;
-}
-
-.message-text {
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.text-1 {
-    color: #333;
-}
-
-.text-2 {
-    color: #666;
-    font-weight: 400;
-    font-size: 16px;
-}
-
-.toast-close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    padding: 5px;
-    cursor: pointer;
-    opacity: 0.7;
-}
-
-    .toast-close:hover {
-        opacity: 1;
-    }
-
-.profile-progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 5px;
-    width: 100%;
-    background: #ddd;
-}
-
-    .profile-progress::before {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        height: 100%;
-        width: 100%;
-        background-color: #40f467;
-    }
-
-    .profile-progress.active::before {
-        animation: progress 5s linear forwards;
-    }
-
-    @@keyframes profile-progress {
-    100% {
-        right: 100%;
-    }
 }
 /*end toast message [PROFILE]*/
-
 </style>
-@if (ViewBag.msgForAlert == true)
-{
-    <div class="profile-toast">
-        <div class="toast-content">
-            <i class="fa-solid fa-check"></i>
-            <div class="message">
-                <span class="message-text text-1">Success</span>
-                <span class="message-text text-2">The plane has been added successfully!</span>
-            </div>
-        </div>
-        <i class="uil uil-multiply toast-close"></i>
-        <div class="profile-progress"></div>
-    </div>
-}
 <!-- Main content -->
 <section class="content mt-4">
     <div class="container-fluid">
         <!-- SELECT2 EXAMPLE -->
         <div class="card card-default">
             <div class="card-header">
-                <h3 class="card-title">Table for adding planes</h3>
+                <h3 class="card-title">
+                    <i class="fa-solid fa-plane-lock"></i>
+                    Planes Management
+                    </h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                         <i class="fas fa-minus"></i>
@@ -149,53 +36,171 @@
                 </div>
             </div>
             <!-- /.card-header -->
-            <form asp-controller="Plane" asp-action="Create">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="small mb-1" for="inputUsername">Registration Number of Plane (This section is optional)</label>
-                                <input class="form-control" id="inputUsername" type="text" placeholder="Enter plane Registration number" value="N12345">
-                            </div>
+            <div class="card-body">
+                <div id="accordion">
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h4 class="card-title w-100">
+                                <a class="d-block w-100" data-toggle="collapse" href="#collapseOne">
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                    Add a New Plane #1
+                                </a>
+                            </h4>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="PlaneModel" class="small mb-1">Plane Model</label>
-                                <input asp-for="PlaneModel" class="form-control" type="text" />
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Capacity" class="small mb-1">Capacity of Plane</label>
-                                <input asp-for="Capacity" class="form-control" type="text" />
-                            </div>
+                        <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                            <form asp-controller="Plane" asp-action="Create">
+                                <div class="card-body">
+                                    <div class="row" style="margin:0">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputUsername">Registration Number of Plane (This section is optional)</label>
+                                                <input class="form-control" id="inputUsername" type="text" placeholder="Enter plane Registration number" value="N12345">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="plane.PlaneModel" class="small mb-1">Plane Model</label>
+                                                <input asp-for="plane.PlaneModel" class="form-control" type="text" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="plane.Capacity" class="small mb-1">Capacity of Plane</label>
+                                                <input asp-for="plane.Capacity" class="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="plane.OwnerCompany" class="small mb-1">Owner Company</label>
+                                                <select asp-for="plane.OwnerCompany" class="form-control select2" style="width: 100%;">
+                                                    <option selected="selected" value="SkyJetEnterprises">SkyJet Enterprises</option>
+                                                    <option value="AeroLinkInternational">AeroLink International</option>
+                                                    <option value="HorizonAviationGroup">Horizon Aviation Group</option>
+                                                    <option value="GlobalWingsCorporation">Global Wings Corporation</option>
+                                                    <option value="CelestialAirwaysLtd.">Celestial Airways Ltd.</option>
+                                                    <option value="StratosphereHoldings">Stratosphere Holdings</option>
+                                                    <option value="ZenithFlightSolutions">Zenith Flight Solutions</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="plane.YearProduction" class="small mb-1">Year Production</label>
+                                                <input asp-for="plane.YearProduction" class="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-end d-flex align-items-center " style="margin:0">
+                                        <div class="col-md-4 justify-content-end d-flex mt-4">
+                                            <a asp-controller="Admin" asp-action="Index">
+                                                <button class="btn btn-secondary ms-1">Cancel</button>
+                                            </a>
+                                            <button type="submit" class="btn  ms-1 btn-update">Add Plane</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.row -->
+                                </div>
+                            </form>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="OwnerCompany" class="small mb-1">Owner Company</label>
-                                <select asp-for="OwnerCompany" class="form-control select2" style="width: 100%;">
-                                    <option selected="selected" value="SkyJetEnterprises">SkyJet Enterprises</option>
-                                    <option value="AeroLinkInternational" >AeroLink International</option>
-                                    <option value="HorizonAviationGroup" >Horizon Aviation Group</option>
-                                    <option value="GlobalWingsCorporation" >Global Wings Corporation</option>
-                                    <option value="CelestialAirwaysLtd." >Celestial Airways Ltd.</option>
-                                    <option value="StratosphereHoldings" >Stratosphere Holdings</option>
-                                    <option value="ZenithFlightSolutions" >Zenith Flight Solutions</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="YearProduction" class="small mb-1">Year Production</label>
-                                <input asp-for="YearProduction" class="form-control" type="text" />
+                    </div>
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4 class="card-title w-100">
+                                <a class="d-block w-100" data-toggle="collapse" href="#collapseThree">
+                                    <i class="fa-solid fa-eye"></i>
+                                    View Planes Details #2
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="collapse" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="col-12">
+                                    <div class="card" style="margin: 0;">
+                                        <div class="card-body table-responsive p-0">
+                                            <table class="table table-head-fixed text-nowrap">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="background-color: #19283f">ID</th>
+                                                        <th style="background-color: #19283f">Model</th>
+                                                        <th style="background-color: #19283f">Capacity</th>
+                                                        <th style="background-color: #19283f">Production Year</th>
+                                                        <th style="background-color: #19283f">Owner Company</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var plane in Model.ListOfPlanes)
+                                                    {
+                                                        <tr>
+                                                            <td>@plane.PlaneID</td>
+                                                            <td>@plane.PlaneModel</td>
+                                                            <td>@plane.Capacity</td>
+                                                            <td><span class="tag tag-success">@plane.YearProduction</span></td>
+                                                            <td>@plane.OwnerCompany</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-end d-flex ">
-                        <div class="col-md-4 justify-content-end d-flex mt-4">
-                            <button asp-controller="Admin" asp-action="Index" type="submit" class="btn btn-secondary ms-1">Cancel</button>
-                            <button type="submit" class="btn  ms-1 btn-update">Add Plane</button>
+                    <div class="card card-danger">
+                        <div class="card-header">
+                            <h4 class="card-title w-100">
+                                <a class="d-block w-100" data-toggle="collapse" href="#collapseTwo">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                    Delete or Remove Planes #3
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="col-12">
+                                    <div class="card" style="margin: 0;">
+                                        <div class="card-body table-responsive p-0">
+                                            <table class="table table-head-fixed text-nowrap">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="background-color: #19283f">#</th>
+                                                        <th style="background-color: #19283f">Model</th>
+                                                        <th style="background-color: #19283f">Capacity</th>
+                                                        <th style="background-color: #19283f">Production Year</th>
+                                                        <th style="background-color: #19283f">Owner Company</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var plane in Model.ListOfPlanes)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                <input class="form-check-input" type="checkbox" style="margin: 0 auto" id="flexCheckDefault">
+                                                            </td>
+                                                            <td>@plane.PlaneModel</td>
+                                                            <td>@plane.Capacity</td>
+                                                            <td><span class="tag tag-success">@plane.YearProduction</span></td>
+                                                            <td>@plane.OwnerCompany</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                                <div class="row justify-content-end d-flex align-items-center " style="margin:0">
+                                    <div class="col-md-4 justify-content-end d-flex mt-4">
+                                        <a asp-controller="Admin" asp-action="Index">
+                                            <button class="btn btn-secondary ms-1">Cancel</button>
+                                        </a>
+                                        <button type="submit" class="btn  ms-1 btn-update">Delete All</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- /.row -->
                 </div>
-            </form>
+            </div>
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
