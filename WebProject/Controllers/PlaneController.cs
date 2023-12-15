@@ -50,5 +50,20 @@ namespace WebProject.Controllers
 
             return View();
         }
+
+        public async Task<IActionResult> Delete(int planeId)
+        {
+            var deletedPlane = await DemoDbContext.Planes.FindAsync(planeId);
+
+            if (deletedPlane != null)
+            {
+                DemoDbContext.Planes.Remove(deletedPlane);
+                await DemoDbContext.SaveChangesAsync();
+
+                return RedirectToAction("Create");
+            }
+
+            return RedirectToAction("Index", "Admin");
+        }
     }
 }
