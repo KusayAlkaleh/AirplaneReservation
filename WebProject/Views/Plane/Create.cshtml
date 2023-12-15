@@ -7,13 +7,13 @@
     .btn-update {
     color: white;
     background-color: var(--red-color);
-}
+    }
 
     .btn-update:hover {
         color: white;
         background-color: #dc3545;
     }
-}
+
 /*end toast message [PROFILE]*/
 </style>
 <!-- Main content -->
@@ -165,7 +165,7 @@
                                                         <th style="background-color: #19283f">Model</th>
                                                         <th style="background-color: #19283f">Capacity</th>
                                                         <th style="background-color: #19283f">Production Year</th>
-                                                        <th style="background-color: #19283f">Owner Company</th>
+                                                        <th style="background-color: #19283f">Action Field</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -178,7 +178,11 @@
                                                             <td>@plane.PlaneModel</td>
                                                             <td>@plane.Capacity</td>
                                                             <td><span class="tag tag-success">@plane.YearProduction</span></td>
-                                                            <td>@plane.OwnerCompany</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-danger">
+                                                                    <a style="color: white" asp-controller="Plane" asp-action="Delete" asp-route-planeId="@plane.PlaneID">Delete</a>
+                                                                </button>
+                                                            </td>
                                                         </tr>
                                                     }
                                                 </tbody>
@@ -188,14 +192,14 @@
                                     </div>
                                     <!-- /.card -->
                                 </div>
-                                <div class="row justify-content-end d-flex align-items-center " style="margin:0">
+                                @* <div class="row justify-content-end d-flex align-items-center " style="margin:0">
                                     <div class="col-md-4 justify-content-end d-flex mt-4">
                                         <a asp-controller="Admin" asp-action="Index">
-                                            <button class="btn btn-secondary ms-1">Cancel</button>
+                                            <button type="submit class="btn btn-secondary ms-1">Cancel</button>
                                         </a>
                                         <button type="submit" class="btn  ms-1 btn-update">Delete All</button>
                                     </div>
-                                </div>
+                                </div> *@
                             </div>
                         </div>
                     </div>
