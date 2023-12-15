@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<style>
+    .btn-update {
+        color: white;
+        background-color: var(--red-color);
+    }
+
+    .btn-update:hover {
+        color: white;
+        background-color: #dc3545;
+    }
+</style>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 pb-1">Plane Seats</h1>
+                <h6 class="m-0" style="color: #77777778">Control All Seats </h6>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6 d-flex align-items-center justify-content-end">
+                <button type="button" class="btn btn-update float-right" data-toggle="modal" data-target="#modal-default">
+                    <i class="fas fa-plus"></i> Add seat
+                </button>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Default Modal</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>One fine body&hellip;</p>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<section class="content mt-4">
+    <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+
+            <table class="table table-head-fixed text-nowrap m-0">
+                <thead>
+                    <tr>
+                        <th style="background-color: #19283f">ID</th>
+                        <th style="background-color: #19283f">Model</th>
+                        <th style="background-color: #19283f">Capacity</th>
+                        <th style="background-color: #19283f">Production Year</th>
+                        <th style="background-color: #19283f">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < 6; i++)
+                    {
+                        <tr>
+                            <td>plane.PlaneID</td>
+                            <td>plane.PlaneModel</td>
+                            <td>plane.Capacity</td>
+                            <td><span class="tag tag-success">plane.YearProduction</span></td>
+                            <td>
+                                <i class="fa-regular fa-pen-to-square text-success "></i>
+                                <i class="fa-regular fa-eye text-primary pe-2 ps-2"></i>
+                                <i class="fa-solid fa-trash-can text-danger"></i>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
