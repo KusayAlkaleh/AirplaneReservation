@@ -191,10 +191,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a asp-controller="Clinic" asp-action="Index" class="nav-link">
-                            <i class="nav-icon far fa-image"></i>
+                        <a asp-controller="Seat" asp-action="Index" class="nav-link">
+                            <i class="nav-icon fa-solid fa-wheelchair" style="font-size: 22px"></i>
                             <p>
-                                Clinics
+                                Seat Details
                             </p>
                         </a>
                     </li>
@@ -267,7 +267,7 @@
     <!-- Bootstrap 5 -->
     <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true" ></script>
     <!-- Bootstrap 5 -->
-    <script src="~/js/all.min.js"></script>
+    <script src="~/js/all.min.js" asp-append-version="true"></script>
     <!-- AdminLTE App -->
     <script src="~/dist/js/adminlte.min.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
