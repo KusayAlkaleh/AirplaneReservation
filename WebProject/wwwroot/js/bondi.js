@@ -1,7 +1,6 @@
 ﻿
 // Multi step Wizard with progress bar
 $(document).ready(function () {
-    console.log("Hello world!")
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
     var current = 1;
@@ -110,7 +109,3 @@ close.addEventListener("click", () => {
         progress.classList.remove("active");
     }, 300);
 });
-
-
-
-// 
