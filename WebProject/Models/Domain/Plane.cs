@@ -19,6 +19,13 @@ namespace WebProject.Models.Domain
         [Required]
         public string OwnerCompany { get; set; }
 
+        [Required]
+        public int AvailableSeats { get; set; }
+
+        [Required]
+        public int ReservedSeats { get; set; }
+
+
         // Navigation property
         public virtual ICollection<Seat> Seats { get; set; }
         public virtual ICollection<Flight> Flights { get; set; }

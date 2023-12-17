@@ -25,6 +25,6 @@ namespace WebProject.Models.Domain
 
 
         // Navigation property
-        public virtual Plane Plane { get; set; }
+        public virtual Plane Plane { get; set; } 
     }
 }
