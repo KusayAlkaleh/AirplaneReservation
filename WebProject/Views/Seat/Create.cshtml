@@ -1,0 +1,166 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model WebProject.Models.SeatPlaneModel;
+
+<style>
+    .btn-update {
+        color: white;
+        background-color: var(--red-color);
+    }
+
+    .btn-update:hover {
+        color: white;
+        background-color: #dc3545;
+    }
+</style>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 pb-1">Plane Seats</h1>
+                <h6 class="m-0" style="color: #77777778">Control All Seats </h6>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6 d-flex align-items-center justify-content-end">
+                <button type="button" class="btn btn-update float-right" data-toggle="modal" data-target="#modal-default">
+                    <i class="fas fa-plus"></i> Add Seat
+                </button>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" asp-controller="Seat" asp-action="Create" >
+                        <div class="modal-header">
+                            <h4 class="modal-title">
+                                Add Seat to plane
+                                <i class="fa-solid fa-circle-info" style="font-size: 18px; color: #33d1cc"></i>
+                            </h4>
+                            
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row" style="margin:0">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label  asp-for="Seat.PlaneId" class="small mb-1">Plane Existing</label>
+                                        <select asp-for="Seat.PlaneId" class="form-control select2" style="width: 100%;">
+                                            <option selected="selected" value="notSelected">Not Selected Yet!</option>
+                                            @foreach (var plane in Model.Planes)
+                                            {
+                                                <option value="@plane.PlaneID">@plane.PlaneModel</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Seat.SeatNumber" class="small mb-1">Seat Number</label>
+                                        <input asp-for="Seat.SeatNumber" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label  asp-for="Seat.SeatType" class="small mb-1">Seat Type</label>
+                                        <select asp-for="Seat.SeatType" id="ticketClass" class="form-control select2" style="width: 100%;" onchange="updatePrice()">
+                                            <option selected="selected" value="notSelected">Not Selected Yet!</option>
+                                            <option value="0">Economy</option>
+                                            <option value="1">Business</option>
+                                            <option value="2">First</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Seat.ReservationStatus" class="small mb-1">Reservation Status</label>
+                                        <input asp-for="Seat.ReservationStatus" class="form-control text-danger" type="text" value="False" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Seat.Price" class="small mb-1">Seat Price</label>
+                                        <input asp-for="Seat.Price" id="ticketPrice" class="form-control" type="text" value="0" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-end">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-update">Add to Plane</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+            </div>
+        <!-- /.modal -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<section class="content mt-4">
+    <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+            <table class="table table-head-fixed text-nowrap m-0">
+                <thead>
+                    <tr>
+                        <th style="background-color: #19283f">ID</th>
+                        <th style="background-color: #19283f">Plane Model</th>
+                        <th style="background-color: #19283f">Seats Available</th>
+                        <th style="background-color: #19283f">Reserved Seats</th>
+                        <th style="background-color: #19283f">Seat Adjustment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var plane in Model.Planes)
+                    {
+                        <tr>
+                            <td>@plane.PlaneID</td>
+                            <td>@plane.PlaneModel</td>
+                            <td>@plane.AvailableSeats</td>
+                            <td><span class="tag tag-success">@plane.ReservedSeats</span></td>
+                            <td>
+                                <a asp-controller="Seat" asp-action="ViewSeats" asp-route-planeId = "@plane.PlaneID">
+                                    <i class="fa-solid fa-arrow-up-right-from-square" style="cursor: pointer"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.container-fluid -->
+    </section>
+
+<script>
+    function updatePrice() {
+        var selectedOption = document.getElementById("ticketClass").value;
+        var price = 0;
+
+        switch (selectedOption) {
+            case "0":
+                price = 125;
+                break;
+            case "1":
+                price = 250;
+                break;
+            case "2":
+                price = 500;
+                break;
+            default:
+                price = 0;
+                break;
+        }
+
+        document.getElementById("ticketPrice").value = price;
+    }
+</script>
+

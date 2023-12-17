@@ -173,14 +173,19 @@
                                                     {
                                                         <tr>
                                                             <td>
-                                                                <input class="form-check-input" type="checkbox" style="margin: 0 auto" id="flexCheckDefault">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" style="margin: 0 auto">
+                                                                </div>
                                                             </td>
                                                             <td>@plane.PlaneModel</td>
                                                             <td>@plane.Capacity</td>
                                                             <td><span class="tag tag-success">@plane.YearProduction</span></td>
                                                             <td>
                                                                 <button type="button" class="btn btn-danger">
-                                                                    <a style="color: white" asp-controller="Plane" asp-action="Delete" asp-route-planeId="@plane.PlaneID">Delete</a>
+                                                                    <a style="color: white" asp-controller="Plane" asp-action="Delete" asp-route-planeId="@plane.PlaneID">
+                                                                        <i class="fa-solid fa-trash-can"></i>
+                                                                        Delete
+                                                                        </a>
                                                                 </button>
                                                             </td>
                                                         </tr>

@@ -1,0 +1,171 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model WebProject.Models.ListWithSeat;
+
+<style>
+    .btn-update {
+        color: white;
+        background-color: var(--red-color);
+    }
+
+        .btn-update:hover {
+            color: white;
+            background-color: #dc3545;
+        }
+</style>
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h4 class="m-0 pb-1">Registration Number</h4>
+                <h5 class="m-0 text-danger">N12345 </h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item text-primary">Plane</li>
+                    <li class="breadcrumb-item active">Update & Delete</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+            <div class="col-12">
+                <div class="card card-default mt-5">
+                    <div class="table-responsive">
+                        <table class="table table-head-fixed text-nowrap m-0">
+                            <thead>
+                                <tr>
+                                    <th style="background-color: #19283f">Seat Number</th>
+                                    <th style="background-color: #19283f">Seat Type</th>
+                                    <th style="background-color: #19283f">Reservation Status</th>
+                                    <th style="background-color: #19283f">Seat Price</th>
+                                    <th style="background-color: #19283f">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var seat in Model.SeatList)
+                                {
+                                    // set a class type of user
+                                    string classType = "", newColor = "";
+                                    if (seat.SeatType == 0)
+                                    {
+                                        classType = "Economy";
+                                        newColor = "#5DADE2";
+
+                                    }
+                                    else if (seat.SeatType == 1)
+                                    {
+                                        classType = "Business";
+                                        newColor = "#2ECC71";
+
+                                    }
+                                    else if (seat.SeatType == 2)
+                                    {
+                                        classType = "First";
+                                        newColor = "#FF6347";
+                                    }
+
+                                    <tr>
+                                        <td>@seat.SeatNumber</td>
+                                        <td style="font-weight: bold; color: @newColor">@classType</td>
+                                        <td>@seat.ReservationStatus</td>
+                                        <td><span class="tag tag-success">$@seat.Price</span></td>
+                                        <td>
+                                            <a onclick="editSeat('@seat.SeatNumber', '@seat.SeatType', '@seat.ReservationStatus', '@seat.Price', '@seat.PlaneId')">
+                                                <i class="fa-regular fa-pen-to-square text-success pe-2" data-toggle="modal" data-target="#modal-default" style="cursor: pointer"></i>
+                                            </a>
+                                            <i class="fa-solid fa-trash-can text-danger" style="cursor: pointer"></i>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal fade pe-0" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" asp-controller="Seat" asp-action="Update">
+                        <div class="modal-header">
+                            <h4 class="modal-title">
+                                Seat Information
+                                <i class="fa-solid fa-circle-info" style="font-size: 18px; color: #33d1cc"></i>
+                            </h4>
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row" style="margin:0">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="Seat.PlaneId" class="small mb-1">Plane ID</label>
+                                        <select asp-for="Seat.PlaneId" class="form-control select2" style="width: 100%;">
+                                            <option id="modal-planeId" selected></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Seat.SeatNumber" class="small mb-1">Seat Number</label>
+                                        <input id="modal-seat-number" asp-for="Seat.SeatNumber" class="form-control" type="text" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label  asp-for="Seat.SeatType" class="small mb-1">Seat Type</label>
+                                        <select asp-for="Seat.SeatType" class="form-control select2" style="width: 100%;">
+                                            <option id="modal-seat-type" selected></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Seat.ReservationStatus" class="small mb-1">Reservation Status</label>
+                                        <input id="modal-reservation-status" asp-for="Seat.ReservationStatus" class="form-control text-danger" type="text"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Seat.Price" class="small mb-1">Seat Price</label>
+                                        <input id="modal-price" asp-for="Seat.Price" id="ticketPrice" class="form-control" type="text" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-end">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-update">Update Seat</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        
+    </div>
+    <!-- /.container-fluid -->
+</div>
+
+
+<!-- JavaScript function to handle the click event and update modal content -->
+<script>
+    function editSeat(seatNumber, seatType, reservationStatus, price, planeId) {
+        
+        // Update modal content with the clicked seat data
+        if (seatType === "0")
+            seatType = "Economy";
+        else if (seatType === "1")
+            seatType = "Business";
+        else
+            seatType = "First";
+        $('#modal-seat-number').val(seatNumber);
+        $('#modal-seat-type').text(seatType);
+        $('#modal-reservation-status').val(reservationStatus);
+        $('#modal-price').val(price);
+        $('#modal-planeId').text(planeId);
+    }
+</script>
+
