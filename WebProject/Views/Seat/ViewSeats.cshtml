@@ -75,7 +75,9 @@
                                             <a onclick="editSeat('@seat.SeatNumber', '@seat.SeatType', '@seat.ReservationStatus', '@seat.Price', '@seat.PlaneId')">
                                                 <i class="fa-regular fa-pen-to-square text-success pe-2" data-toggle="modal" data-target="#modal-default" style="cursor: pointer"></i>
                                             </a>
-                                            <i class="fa-solid fa-trash-can text-danger" style="cursor: pointer"></i>
+                                            <a asp-controller="Seat" asp-action="Delete" asp-route-seatId="@seat.SeatID">
+                                                <i class="fa-solid fa-trash-can text-danger" style="cursor: pointer"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 }
@@ -105,7 +107,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label asp-for="Seat.PlaneId" class="small mb-1">Plane ID</label>
-                                        <select asp-for="Seat.PlaneId" class="form-control select2" style="width: 100%;">
+                                        <select asp-for="Seat.PlaneId" class="form-control select2" style="width: 100%;" disabled>
                                             <option id="modal-planeId" selected></option>
                                         </select>
                                     </div>
@@ -117,19 +119,24 @@
                                     </div>
                                     <div class="form-group">
                                         <label  asp-for="Seat.SeatType" class="small mb-1">Seat Type</label>
-                                        <select asp-for="Seat.SeatType" class="form-control select2" style="width: 100%;">
-                                            <option id="modal-seat-type" selected></option>
+                                        <select asp-for="Seat.SeatType" id="modal-seat-type" class="form-control select2" style="width: 100%;" onchange="updatePrice()">
+                                            <option value="0">Economy</option>
+                                            <option value="1">Business</option>
+                                            <option value="2">First</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="Seat.ReservationStatus" class="small mb-1">Reservation Status</label>
-                                        <input id="modal-reservation-status" asp-for="Seat.ReservationStatus" class="form-control text-danger" type="text"/>
+                                        <label  asp-for="Seat.ReservationStatus" class="small mb-1">Reservation Status</label>
+                                        <select asp-for="Seat.ReservationStatus" id="modal-reservation-status" class="form-control select2" style="width: 100%;" onchange="updatePrice()">
+                                            <option value="0" >False</option>
+                                            <option value="1" >True</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="Seat.Price" class="small mb-1">Seat Price</label>
-                                        <input id="modal-price" asp-for="Seat.Price" id="ticketPrice" class="form-control" type="text" readonly />
+                                        <input id="modal-price" asp-for="Seat.Price" class="form-control" type="text" readonly />
                                     </div>
                                 </div>
                             </div>
@@ -149,23 +156,53 @@
     <!-- /.container-fluid -->
 </div>
 
-
-<!-- JavaScript function to handle the click event and update modal content -->
 <script>
+
+    // Update modal content with the clicked seat data
     function editSeat(seatNumber, seatType, reservationStatus, price, planeId) {
         
-        // Update modal content with the clicked seat data
-        if (seatType === "0")
-            seatType = "Economy";
-        else if (seatType === "1")
-            seatType = "Business";
-        else
-            seatType = "First";
+
+        // Set true OR false
+        if (reservationStatus === "True" || reservationStatus === "true") {
+
+            reservationStatus = "1";
+            $('#modal-reservation-status').css('color', '#007bff');
+            $('#modal-reservation-status').val(reservationStatus);
+        }
+        else {
+            reservationStatus = "0"
+            $('#modal-reservation-status').css('color', '#dc3545');
+            $('#modal-reservation-status').val(reservationStatus);
+        }
+
+        // Sending other values to thier tags
         $('#modal-seat-number').val(seatNumber);
-        $('#modal-seat-type').text(seatType);
-        $('#modal-reservation-status').val(reservationStatus);
+        $('#modal-seat-type').val(seatType);
         $('#modal-price').val(price);
         $('#modal-planeId').text(planeId);
+    }
+
+    // set price by classtype
+    function updatePrice() {
+        var selectedOption = document.getElementById("modal-seat-type").value;
+        var price = 0;
+
+        switch (selectedOption) {
+            case "0":
+                price = 125;
+                break;
+            case "1":
+                price = 250;
+                break;
+            case "2":
+                price = 500;
+                break;
+            default:
+                price = 0;
+                break;
+        }
+
+        document.getElementById("modal-price").value = price;
     }
 </script>
 
