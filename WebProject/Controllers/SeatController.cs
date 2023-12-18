@@ -79,5 +79,27 @@ namespace WebProject.Controllers
             var newDeger = SeatId;
             return View("ViewSeats");
         }
+
+        public async Task<IActionResult> Delete(int seatId)
+        {
+            var removedSeat = await DemoDbContext.Seats.FindAsync(seatId);
+
+            if(removedSeat != null)
+            {
+                //Get plane info for updating it ReservedSeats & AvailableSeats seats
+                var editingPlane = await DemoDbContext.Planes.FirstOrDefaultAsync(x => x.PlaneID == removedSeat.PlaneId);
+                editingPlane.ReservedSeats--;
+                editingPlane.AvailableSeats++;
+                DemoDbContext.Planes.Update(editingPlane);
+
+                //Removing seat from database
+                DemoDbContext.Seats.Remove(removedSeat);
+                await DemoDbContext.SaveChangesAsync();
+
+                return RedirectToAction("ViewSeats", new {planeId = removedSeat.PlaneId });
+            }
+            
+            return RedirectToAction("Index", "Admin");
+        }
     }
 }
