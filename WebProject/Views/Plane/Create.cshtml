@@ -172,11 +172,7 @@
                                                     @foreach (var plane in Model.ListOfPlanes)
                                                     {
                                                         <tr>
-                                                            <td>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" style="margin: 0 auto">
-                                                                </div>
-                                                            </td>
+                                                            <td>@plane.PlaneID</td>
                                                             <td>@plane.PlaneModel</td>
                                                             <td>@plane.Capacity</td>
                                                             <td><span class="tag tag-success">@plane.YearProduction</span></td>
