@@ -40,21 +40,30 @@
                                 Add Seat to plane
                                 <i class="fa-solid fa-circle-info" style="font-size: 18px; color: #33d1cc"></i>
                             </h4>
-                            
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
+                            
+                            <div id="showingAlert" class="alert alert-danger alert-dismissible" style="display: none;">
+                                <h5><i class="icon fas fa-ban"></i> Plane Capacity Reached! </h5>
+                                This is to inform you that the capacity of the plane has been reached,
+                                and no more seats can be added at the moment.
+                            </div>
+
                             <div class="row" style="margin:0">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label  asp-for="Seat.PlaneId" class="small mb-1">Plane Existing</label>
-                                        <select asp-for="Seat.PlaneId" class="form-control select2" style="width: 100%;">
+                                        <select asp-for="Seat.PlaneId" id="planeSelect" class="form-control select2" style="width: 100%;" onchange="showAlertOrNot()">
                                             <option selected="selected" value="notSelected">Not Selected Yet!</option>
                                             @foreach (var plane in Model.Planes)
                                             {
-                                                <option value="@plane.PlaneID">@plane.PlaneModel</option>
+                                                
+                                                var optionValue = (plane.ReservedSeats == plane.Capacity) ? plane.AvailableSeats : plane.PlaneID;
+                                                
+                                                <option value="@optionValue" >@plane.PlaneModel</option>
                                             }
                                         </select>
                                     </div>
@@ -76,19 +85,21 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="Seat.ReservationStatus" class="small mb-1">Reservation Status</label>
-                                        <input asp-for="Seat.ReservationStatus" class="form-control text-danger" type="text" value="False" readonly />
+                                        <label  asp-for="Seat.ReservationStatus" class="small mb-1">Reservation Status</label>
+                                        <select asp-for="Seat.ReservationStatus" id="ticketClass" class="form-control select2 text-danger" style="width: 100%;" onchange="updatePrice()" disabled>
+                                            <option value="0" selected >False</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="Seat.Price" class="small mb-1">Seat Price</label>
-                                        <input asp-for="Seat.Price" id="ticketPrice" class="form-control" type="text" value="0" readonly />
+                                        <input asp-for="Seat.Price" id="ticketPrice" class="form-control" type="text" readonly />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer justify-content-end">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-update">Add to Plane</button>
+                            <button type="submit" id="addToPlaneButton" class="btn btn-update">Add to Plane</button>
                         </div>
                     </form>
                 </div>
@@ -141,9 +152,27 @@
     </section>
 
 <script>
+
+    //Checking for alert to plane capacity
+    function showAlertOrNot() {
+
+        var selectedSeats = document.getElementById('planeSelect').value;
+        var alertDiv = document.getElementById('showingAlert');
+
+        // Show the alert if AvailableSeats is 0
+        if (selectedSeats == 0) {
+            alertDiv.style.display = 'block';
+            document.getElementById('addToPlaneButton').disabled = true;
+        } else {
+            alertDiv.style.display = 'none';
+            document.getElementById('addToPlaneButton').disabled = false;
+        }
+    }
+
+    //updating price value by seatType
     function updatePrice() {
         var selectedOption = document.getElementById("ticketClass").value;
-        var price = 0;
+        var price;
 
         switch (selectedOption) {
             case "0":

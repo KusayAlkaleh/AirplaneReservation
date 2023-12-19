@@ -32,24 +32,16 @@ namespace WebProject.Controllers
         {
             if(model.Seat != null)
             {
-                // Checking the capacity of plane
-                var getInformationPlane = await DemoDbContext.Planes.FindAsync(model.Seat.PlaneId);
-                var counOfSeats = await DemoDbContext.Seats.CountAsync(x => x.PlaneId == model.Seat.PlaneId);
 
-                if(getInformationPlane.Capacity == counOfSeats)
-                {
-                    ViewBag.alertMsg = "Capacity is full!";
-                    ViewBag.capacityState = true;
-                }
-                else
-                {
-                    // updating seats of plane
-                    getInformationPlane.ReservedSeats++;
-                    getInformationPlane.AvailableSeats--;
-                    DemoDbContext.Planes.Update(getInformationPlane);
-                    await DemoDbContext.Seats.AddAsync(model.Seat);
-                    await DemoDbContext.SaveChangesAsync();
-                }
+                // updating seats of plane
+                var getInformationPlane = await DemoDbContext.Planes.FirstOrDefaultAsync(x => x.PlaneID == model.Seat.PlaneId);
+                
+                getInformationPlane.ReservedSeats++;
+                getInformationPlane.AvailableSeats--;
+                DemoDbContext.Planes.Update(getInformationPlane);
+                await DemoDbContext.Seats.AddAsync(model.Seat);
+                await DemoDbContext.SaveChangesAsync();
+                
 
                 SeatPlaneModel newModel = new SeatPlaneModel
                 {
@@ -74,10 +66,40 @@ namespace WebProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(int SeatId)
+        public async Task<IActionResult> Update(ListWithSeat model)
         {
-            var newDeger = SeatId;
-            return View("ViewSeats");
+
+            if(model!=null &&  model.Seat != null)
+            {
+                DemoDbContext.Seats.Update(model.Seat);
+                await DemoDbContext.SaveChangesAsync();
+
+                return RedirectToAction("ViewSeats", new { planeId = model.Seat.PlaneId});
+            }
+
+            return RedirectToAction("Index", "Admin");
+        }
+
+        public async Task<IActionResult> Delete(int seatId)
+        {
+            var removedSeat = await DemoDbContext.Seats.FindAsync(seatId);
+
+            if(removedSeat != null)
+            {
+                //Get plane info for updating it ReservedSeats & AvailableSeats seats
+                var editingPlane = await DemoDbContext.Planes.FirstOrDefaultAsync(x => x.PlaneID == removedSeat.PlaneId);
+                editingPlane.ReservedSeats--;
+                editingPlane.AvailableSeats++;
+                DemoDbContext.Planes.Update(editingPlane);
+
+                //Removing seat from database
+                DemoDbContext.Seats.Remove(removedSeat);
+                await DemoDbContext.SaveChangesAsync();
+
+                return RedirectToAction("ViewSeats", new {planeId = removedSeat.PlaneId });
+            }
+            
+            return RedirectToAction("Index", "Admin");
         }
     }
 }
