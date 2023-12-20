@@ -131,8 +131,8 @@
                                     <div class="form-group">
                                         <label  asp-for="Seat.ReservationStatus" class="small mb-1">Reservation Status</label>
                                         <select asp-for="Seat.ReservationStatus" id="modal-reservation-status" class="form-control select2" style="width: 100%;" onchange="updatePrice()">
-                                            <option value="0" >False</option>
-                                            <option value="1" >True</option>
+                                            <option value="0" style="color: #dc3545; font-weight: bold;">False</option>
+                                            <option value="1" style="color: #007bff; font-weight: bold;">True</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -167,16 +167,13 @@
         if (reservationStatus === "True" || reservationStatus === "true") {
 
             reservationStatus = "1";
-            $('#modal-reservation-status').css('color', '#007bff');
-            $('#modal-reservation-status').val(reservationStatus);
         }
         else {
             reservationStatus = "0"
-            $('#modal-reservation-status').css('color', '#dc3545');
-            $('#modal-reservation-status').val(reservationStatus);
         }
 
         // Sending other values to thier tags
+        $('#modal-reservation-status').val(reservationStatus);
         $('#modal-seat-number').val(seatNumber);
         $('#modal-seat-type').val(seatType);
         $('#modal-price').val(price);
