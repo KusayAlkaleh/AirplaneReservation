@@ -117,34 +117,35 @@
     <div class="container-fluid">
         <!-- SELECT2 EXAMPLE -->
         <div class="card card-default">
-            <table class="table table-head-fixed text-nowrap m-0">
-                <thead>
-                    <tr>
-                        <th style="background-color: #19283f">ID</th>
-                        <th style="background-color: #19283f">Plane Model</th>
-                        <th style="background-color: #19283f">Seats Available</th>
-                        <th style="background-color: #19283f">Reserved Seats</th>
-                        <th style="background-color: #19283f">Seat Adjustment</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var plane in Model.Planes)
-                    {
+            <div class="table-responsive">
+                <table class="table table-head-fixed text-nowrap m-0">
+                    <thead>
                         <tr>
-                            <td>@plane.PlaneID</td>
-                            <td>@plane.PlaneModel</td>
-                            <td>@plane.AvailableSeats</td>
-                            <td><span class="tag tag-success">@plane.ReservedSeats</span></td>
-                            <td>
-                                <a asp-controller="Seat" asp-action="ViewSeats" asp-route-planeId = "@plane.PlaneID">
-                                    <i class="fa-solid fa-arrow-up-right-from-square" style="cursor: pointer"></i>
-                                </a>
-                            </td>
+                            <th style="background-color: #19283f">ID</th>
+                            <th style="background-color: #19283f">Plane Model</th>
+                            <th style="background-color: #19283f">Seats Available</th>
+                            <th style="background-color: #19283f">Reserved Seats</th>
+                            <th style="background-color: #19283f">Seat Adjustment</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
-
+                    </thead>
+                    <tbody>
+                        @foreach (var plane in Model.Planes)
+                        {
+                            <tr>
+                                <td>@plane.PlaneID</td>
+                                <td>@plane.PlaneModel</td>
+                                <td>@plane.AvailableSeats</td>
+                                <td><span class="tag tag-success">@plane.ReservedSeats</span></td>
+                                <td>
+                                    <a asp-controller="Seat" asp-action="ViewSeats" asp-route-planeId="@plane.PlaneID">
+                                        <i class="fa-solid fa-arrow-up-right-from-square" style="cursor: pointer"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
         <!-- /.card -->
     </div>
