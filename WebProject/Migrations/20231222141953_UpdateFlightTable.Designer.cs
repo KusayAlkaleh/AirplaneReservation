@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProject.Data;
 
@@ -11,9 +12,10 @@ using WebProject.Data;
 namespace WebProject.Migrations
 {
     [DbContext(typeof(DemoDbContext))]
-    partial class DemoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231222141953_UpdateFlightTable")]
+    partial class UpdateFlightTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,14 +61,15 @@ namespace WebProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FlightID"), 1L, 1);
 
-                    b.Property<int?>("AirportID")
+                    b.Property<int>("AirportId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ArrivalDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ArrivingPoint")
-                        .HasColumnType("int");
+                    b.Property<string>("ArrivingPoint")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ArrivingTime")
                         .HasColumnType("datetime2");
@@ -81,8 +84,9 @@ namespace WebProject.Migrations
                     b.Property<int>("PlaneId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StartingPoint")
-                        .HasColumnType("int");
+                    b.Property<string>("StartingPoint")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartingTime")
                         .HasColumnType("datetime2");
@@ -92,7 +96,7 @@ namespace WebProject.Migrations
 
                     b.HasKey("FlightID");
 
-                    b.HasIndex("AirportID");
+                    b.HasIndex("AirportId");
 
                     b.HasIndex("PlaneId");
 
@@ -209,15 +213,19 @@ namespace WebProject.Migrations
 
             modelBuilder.Entity("WebProject.Models.Domain.Flight", b =>
                 {
-                    b.HasOne("WebProject.Models.Domain.Airport", null)
+                    b.HasOne("WebProject.Models.Domain.Airport", "Airport")
                         .WithMany("Flights")
-                        .HasForeignKey("AirportID");
+                        .HasForeignKey("AirportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WebProject.Models.Domain.Plane", "Plane")
                         .WithMany("Flights")
                         .HasForeignKey("PlaneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Airport");
 
                     b.Navigation("Plane");
                 });
