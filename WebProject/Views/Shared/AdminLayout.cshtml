@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Css file created by me -->
     <link rel="stylesheet" href="~/css/bondi.css" asp-append-version="true" />
+    <!-- BS Stepper -->
+    <link rel="stylesheet" href="~/plugins/bs-stepper/css/bs-stepper.min.css" asp-append-version="true">
     <!-- Bootstrap 5 -->
     <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true" />
     <!-- Font Awesome -->
@@ -179,7 +181,7 @@
                             <a asp-controller="Admin" asp-action="ViewUsers" class="nav-link">
                                 <i class="nav-icon fa-solid fa-users"></i>
                                 <p>
-                                    Users
+                                    View Users
                                 </p>
                             </a>
                         </li>
@@ -187,8 +189,7 @@
                             <a asp-controller="Plane" asp-action="Create" class="nav-link">
                                 <i class="nav-icon fa-solid fa-plane-departure"></i>
                                 <p>
-                                    Planes
-                                    <span class="right badge badge-danger">New</span>
+                                    Planes Information
                                 </p>
                             </a>
                         </li>
@@ -197,19 +198,28 @@
                                 <i class="nav-icon fa-solid fa-wheelchair" style="font-size: 20px"></i>
                                 <p>
                                     Seat Details
+                                    <span class="right badge badge-danger">New</span>
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-controller="Appointment" asp-action="Index" class="nav-link">
+                            <a asp-controller="Airport" asp-action="Create" class="nav-link">
                                 <i class="nav-icon fa-solid fa-synagogue"></i>
                                 <p>
-                                    Airports
+                                    Airports Control
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-controller="Doctor" asp-action="Index" class="nav-link">
+                            <a asp-controller="Flight" asp-action="Create" class="nav-link">
+                                <i class="nav-icon fa-solid fa-circle-nodes"></i>
+                                <p>
+                                    Prepare Flight
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Payment" asp-action="Index" class="nav-link">
                                 <i class="nav-icon fa-solid fa-file-invoice-dollar" style="font-size: 18px"></i>
                                 <p>
                                     Payment Records
@@ -224,29 +234,6 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-user"></i>
-                                <p>
-                                    Person
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link ">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Client</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Admin</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -254,13 +241,15 @@
             <!-- /.sidebar -->
         </aside>
 
-        <div class="content-wrapper" style="background-color: white;">
-            <div class="container">
-                <main role="main" class="pb-3">
-                    @RenderBody()
-                </main>
+        <div class="wrapper">
+            <div class="content-wrapper">
+                <div class="container">
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
+                </div>
+                <!-- /.content -->
             </div>
-            <!-- /.content -->
         </div>
     </div>
 
@@ -274,6 +263,8 @@
     <script src="~/js/all.min.js" asp-append-version="true"></script>
     <!-- AdminLTE App -->
     <script src="~/dist/js/adminlte.min.js" asp-append-version="true"></script>
+    <!-- BS-Stepper -->
+    <script src="~/plugins/bs-stepper/js/bs-stepper.min.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

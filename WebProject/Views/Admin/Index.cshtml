@@ -99,11 +99,11 @@
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body p-0">
+                    <div class="card-body p-0" style="background-color: #f4f6f9;">
                         <ul class="users-list clearfix">
                             @foreach (var user in Model)
                             {
-                                <li style="width: 15%;">
+                                <li >
                                     <img src="@user.ProfileImg"
                                          alt="User Image" />
                                     <a class="users-list-name" style="text-transform: uppercase">@user.FirstName </a>

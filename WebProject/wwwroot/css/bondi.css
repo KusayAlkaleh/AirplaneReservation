@@ -319,10 +319,6 @@ footer .links ul li {
     font-size: 14px;
 }
 
-.card .card-body {
-    background: #ebf2fa;
-}
-
 .card .card-header {
     font-weight: 500;
     background-color: var(--dark-color);
@@ -389,9 +385,6 @@ footer .links ul li {
     
 }
 
-tbody {
-    background-color: var(--section-color);
-}
 
 .dropdown-menu .view-btn:hover {
     background-color: #3c8cbb;
@@ -772,5 +765,9 @@ tbody {
 .clearfix .btn:hover {
     color: white;
     background-color: #e12e49;
+}
+
+.card-body .callout {
+    background-color: #f4f6f9;
 }
 /*end admin panel*/

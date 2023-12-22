@@ -17,13 +17,25 @@ namespace WebProject.Models.Domain
         public int PlaneId { get; set; }
 
         [Required]
+        public string FlightNumber { get; set; }
+
+        [Required]
         public string StartingPoint { get; set; }
 
         [Required]
         public string ArrivingPoint { get; set; }
 
         [Required]
-        public DateTime FlightDate { get; set; }
+        public DateTime StartingTime { get; set; }
+
+        [Required]
+        public DateTime ArrivingTime { get; set; }
+
+        [Required]
+        public DateTime DepartureDate { get; set; }
+
+        [Required]
+        public DateTime ArrivalDate { get; set; }
 
         [Required]
         public int TotalSeats { get; set; }

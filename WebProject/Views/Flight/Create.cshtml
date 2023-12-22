@@ -1,0 +1,320 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model WebProject.Models.ModelWithFlight;
+
+<style>
+    .btn-update {
+        color: white;
+        background-color: var(--red-color);
+    }
+
+    .btn-update:hover {
+        color: white;
+        background-color: #dc3545;
+    }
+
+</style>
+
+<section class="content pt-4">
+    <div class="container-fluid">
+        <!-- /.row -->
+        <div class="row mb-4">
+            <div class="col-sm-6">
+                <h1 class="m-0 pb-1">Flights Control</h1>
+                <h5 class="m-0" style="color: #77777778">Creating, Updating Flights </h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right" style="background-color: #f4f6f9;">
+                    <a asp-controller="Flight" asp-action="Create">
+                        <li class="breadcrumb-item text-primary">Flight</li>
+                    </a>
+                    <li class="breadcrumb-item text-primary"></li>
+                    <li class="breadcrumb-item active">Create & Update</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <div class="row pt-2">
+            <div class="col-md-3">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Statistics</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item active">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle text-primary"></i> Created
+                                    <span class="badge badge-danger float-right">12</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle text-warning"></i> Availabel Airports
+                                    <span class="badge badge-danger float-right">6</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle text-danger"></i> Cancelled
+                                    <span class="badge badge-danger float-right">3</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle text-primary"></i> Planes
+                                    <span class="badge badge-danger float-right">10</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle text-warning"></i> Class Type
+                                    <span class="badge badge-danger float-right">3</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <a class="btn btn-primary btn-block mb-3">Show All Flights</a>
+                <!-- /.card -->
+            </div>
+            <div class="col-md-9">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title">Create a New Flight</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="bs-stepper">
+                            <div class="bs-stepper-header" role="tablist">
+                                <!-- your steps here -->
+                                <div class="step" data-target="#flight-information">
+                                    <button type="button" class="step-trigger" role="tab" aria-controls="flight-information" id="flight-information-trigger">
+                                        <span class="bs-stepper-circle">1</span>
+                                        <span class="bs-stepper-label">Flight Information</span>
+                                    </button>
+                                </div>
+                                <div class="line"></div>
+                                <div class="step" data-target="#plane-information">
+                                    <button type="button" class="step-trigger" role="tab" aria-controls="plane-information" id="plane-information-trigger">
+                                        <span class="bs-stepper-circle">2</span>
+                                        <span class="bs-stepper-label">Plane Details</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <form asp-controller="Flight" asp-action="Create">
+                                <div class="bs-stepper-content">
+                                    <!-- your steps content here -->
+                                    <div id="flight-information" class="content" role="tabpanel" aria-labelledby="flight-information-trigger">
+                                        <div class="card-body">
+
+                                            <div id="showingAlert" class="alert alert-danger alert-dismissible" style="display: none;">
+                                                <h5><i class="icon fas fa-ban"></i> Attention, Admin! </h5>
+                                                It appears that the airport you are trying to select has already been chosen, 
+                                                Please select a different time.
+                                            </div>
+
+                                            <div id="showingAlertTime" class="alert alert-danger alert-dismissible" style="display: none;">
+                                                <h5><i class="icon fas fa-ban"></i> Attention, Admin! </h5>
+                                                It seems that the time slot you are trying to assign is already occupied,
+                                                Please select a different airport.
+                                            </div>
+
+                                            <div class="row" style="margin:0">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label asp-for="Flight.FlightNumber" class="small mb-1" for="inputUsername">Flight Number ( Is like a unique code for your journey. For example, 'DL1234' )</label>
+                                                        <input asp-for="Flight.FlightNumber" class="form-control" id="inputUsername" type="text" value="DL1234 (Example)">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label  asp-for="Flight.StartingPoint" class="small mb-1">Departure Airport</label>
+                                                        <select asp-for="Flight.StartingPoint" class="form-control select2" id="start-airport-modal" style="width: 100%;" onchange="showAlertOrNot()">
+                                                            <option selected="selected">Not Selected Yet!</option>
+                                                            @foreach (var airport in Model.Airports)
+                                                            {
+                                                                <option value="@airport.AirportID">@airport.AirportName</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Flight.StartingTime" class="small mb-1">Departure Time</label>
+                                                        <input asp-for="Flight.StartingTime" id="start-time-modal" class="form-control" type="time" onchange="showAlertOrNotTime()">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label  asp-for="Flight.ArrivingPoint" class="small mb-1">Arrival Airport</label>
+                                                        <select asp-for="Flight.ArrivingPoint" class="form-control select2" id="arriving-airport-modal" style="width: 100%;" onchange="showAlertOrNot()">
+                                                            <option selected="selected">Not Selected Yet!</option>
+                                                            @foreach (var airport in Model.Airports)
+                                                            {
+                                                                <option value="@airport.AirportID">@airport.AirportName</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label asp-for="Flight.ArrivingTime" class="small mb-1">Arrival Time</label>
+                                                        <input asp-for="Flight.ArrivingTime" id="arrival-time-modal" class="form-control" type="time" onchange="showAlertOrNotTime()">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="Flight.DepartureDate" class="small mb-1">Departure Date</label>
+                                                        <input asp-for="Flight.DepartureDate" type="date" class="form-control" min="<?php echo date('Y-m-d'); ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="Flight.ArrivalDate" class="small mb-1">Arrival Date</label>
+                                                        <input asp-for="Flight.ArrivalDate" type="date" class="form-control" min="<?php echo date('Y-m-d'); ?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-end d-flex align-items-center " style="margin:0">
+                                                <div class="col-md-4 justify-content-end d-flex mt-4">
+                                                    <input id="save-button" type="button" class="btn btn-update" onclick="stepper.next()" value="Save and Continue">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div id="plane-information" class="content" role="tabpanel" aria-labelledby="plane-information-trigger">
+                                        <div class="card-body">
+                                            <div class="row" style="margin:0">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label  asp-for="Flight.PlaneId" class="small mb-1" for="inputUsername">Choose an Airplane</label>
+                                                        <select asp-for="Flight.PlaneId" class="form-control select2" id="planeSelect" style="width: 100%;">
+                                                            <option selected="selected">Not Selected Yet!</option>
+                                                            @foreach (var plane in Model.Planes)
+                                                            {
+                                                                <option value="@plane.PlaneID"
+                                                                        data-owner-company = "@plane.OwnerCompany"
+                                                                        data-available-seats = "@plane.AvailableSeats"
+                                                                        data-capacity = "@plane.Capacity" 
+                                                                        data-year = "@plane.YearProduction">
+                                                                        @plane.PlaneModel
+                                                                </option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1">Owner Company</label>
+                                                        <input class="form-control" id="owner-company-modal" type="text" disabled />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="small mb-1">Year Production</label>
+                                                        <input class="form-control" id="year-modal" type="text" disabled />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1">Capacity of Airplane</label>
+                                                        <input class="form-control" id="capacity-modal" type="text" disabled />
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="small mb-1">Available Seats</label>
+                                                        <input class="form-control" id="available-seats-modal" type="text" disabled />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-end d-flex align-items-center " style="margin:0">
+                                            <div class="col-md-4 justify-content-end d-flex mt-4">
+                                                <input type="button" class="btn btn-secondary" onclick="stepper.previous()" style="margin-right: 7px" value="Previous">
+                                                <input type="submit" class="btn btn-update" value="Create Flight">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+</section>
+
+
+<script>
+
+    //fill fields automaticly
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('planeSelect').addEventListener('change', function () {
+
+            var selectedOption = this.options[this.selectedIndex];
+
+            // Update form fields with data from the selected option
+            document.getElementById('year-modal').value = selectedOption.getAttribute('data-year');
+            document.getElementById('capacity-modal').value = selectedOption.getAttribute('data-capacity');
+            document.getElementById('owner-company-modal').value = selectedOption.getAttribute('data-owner-company');
+            document.getElementById('available-seats-modal').value = selectedOption.getAttribute('data-available-seats');
+        });
+    });
+
+
+    // BS-Stepper Init
+    document.addEventListener('DOMContentLoaded', function () {
+        window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+    });
+
+    //Checking for alert to same airport
+    function showAlertOrNot() {
+
+        var startingPoint = document.getElementById('start-airport-modal').value; 
+        var arrivingPoint = document.getElementById('arriving-airport-modal').value;
+
+        var alertDiv = document.getElementById('showingAlert');
+
+        // Show the alert if AvailableSeats is 0
+        if (startingPoint == arrivingPoint) {
+            alertDiv.style.display = 'block';
+            document.getElementById('save-button').disabled = true;
+        } else {
+            alertDiv.style.display = 'none';
+            document.getElementById('save-button').disabled = false;
+        }
+    }
+
+    //Checking for alert to same time
+    function showAlertOrNotTime() {
+
+        var startingTime = document.getElementById('start-time-modal').value;
+        var arrivingTime = document.getElementById('arrival-time-modal').value;
+
+        var alertDiv = document.getElementById('showingAlertTime');
+        // Show the alert if AvailableSeats is 0
+        if (startingTime == arrivingTime) {
+            alertDiv.style.display = 'block';
+            document.getElementById('save-button').disabled = true;
+        } else {
+            alertDiv.style.display = 'none';
+            document.getElementById('save-button').disabled = false;
+        }
+    }
+</script>
