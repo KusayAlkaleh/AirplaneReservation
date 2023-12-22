@@ -121,7 +121,7 @@
                 <table class="table table-head-fixed text-nowrap m-0">
                     <thead>
                         <tr>
-                            <th style="background-color: #19283f">ID</th>
+                            <th style="background-color: #19283f">Owner Company</th>
                             <th style="background-color: #19283f">Plane Model</th>
                             <th style="background-color: #19283f">Seats Available</th>
                             <th style="background-color: #19283f">Reserved Seats</th>
@@ -132,7 +132,7 @@
                         @foreach (var plane in Model.Planes)
                         {
                             <tr>
-                                <td>@plane.PlaneID</td>
+                                <td>@plane.OwnerCompany</td>
                                 <td>@plane.PlaneModel</td>
                                 <td>@plane.AvailableSeats</td>
                                 <td><span class="tag tag-success">@plane.ReservedSeats</span></td>

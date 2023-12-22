@@ -1,0 +1,226 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model WebProject.Models.ListWithAirport;
+
+<style>
+    .btn-update {
+        color: white;
+        background-color: var(--red-color);
+    }
+
+    .btn-update:hover {
+        color: white;
+        background-color: #dc3545;
+    }
+</style>
+
+<section class="content pt-4">
+    <div class="container-fluid">
+        <div class="row mb-4">
+            <div class="col-sm-6">
+                <h2 class="m-0 pb-1">Airport Mangement</h2>
+                <h5 class="m-0" style="color: #77777778">Adding, Updating Airports </h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right" style="background-color: #f4f6f9;">
+                    <a asp-controller="Airport" asp-action="Create">
+                        <li class="breadcrumb-item text-primary">Airport</li>
+                    </a>
+                    <li class="breadcrumb-item text-primary"></li>
+                    <li class="breadcrumb-item active">Update & Delete</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="callout callout-info">
+                    <h5><i class="fa-solid fa-circle-info"></i> Note:</h5>
+                    I hope this note finds you well. As we continue to enhance our Airport Management System,
+                    I would like to bring your attention to the following updates and
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card card-default mt-3">
+                    <div class="card-header">
+                        <h3 class="card-title">Newly Added Airports</h3>
+
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <button type="button" class="btn btn-update float-right" data-toggle="modal" data-target="#modal-default" style="font-size: 100%">
+                                    <i class="fas fa-plus"></i> Add an Airport
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-head-fixed text-nowrap m-0">
+                            <thead>
+                                <tr>
+                                    <th style="background-color: #19283f">IATA Code</th>
+                                    <th style="background-color: #19283f">Airport Name</th>
+                                    <th style="background-color: #19283f">City Of Airport</th>
+                                    <th style="background-color: #19283f">Country Of Airport</th>
+                                    <th style="background-color: #19283f">Adjustment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var airport in Model.Airports)
+                                {
+                                    <tr>
+                                        <td>@airport.IATACode</td>
+                                        <td>@airport.AirportName</td>
+                                        <td>@airport.CityOfAirport</td>
+                                        <td>@airport.CountryOfAirport</td>
+                                        <td>
+                                            <i class="fa-solid fa-eye text-primary" style="cursor: pointer"></i>
+                                            <a onclick="editAirport('@airport.AirportID', '@airport.IATACode', '@airport.AirportName', '@airport.CityOfAirport', '@airport.CountryOfAirport')">
+                                                <i class="fa-regular fa-pen-to-square text-success ps-2 pe-2" data-toggle="modal" data-target="#modal-primary" style="cursor: pointer"></i>
+                                            </a>
+                                            <a asp-controller="Airport" asp-action="Delete" asp-route-airportId="@airport.AirportID" >
+                                                <i class="fa-solid fa-trash-can text-danger" style="cursor: pointer"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" asp-controller="Airport" asp-action="Create">
+                        <div class="modal-header">
+                            <h4 class="modal-title">
+                                Adding a New Airport
+                                <i class="fa-solid fa-circle-info" style="font-size: 18px; color: #33d1cc"></i>
+                            </h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="row" style="margin:0">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="Airport.IATACode" class="small mb-1">IATA Code</label>
+                                        <input asp-for="Airport.IATACode" class="form-control" type="text" value="LHR (This section optional)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Airport.AirportName" class="small mb-1">Airport Name</label>
+                                        <input asp-for="Airport.AirportName" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Airport.CityOfAirport" class="small mb-1">City Of Airport</label>
+                                        <input asp-for="Airport.CityOfAirport" class="form-control" type="text" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label  class="small mb-1">Reservation Status</label>
+                                        <select  id="ticketClass" class="form-control select2 text-danger" style="width: 100%;" disabled >
+                                            <option value="0" selected>False</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Airport.CountryOfAirport" class="small mb-1">Country Of Airport</label>
+                                        <input asp-for="Airport.CountryOfAirport" class="form-control" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-end">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" id="addToPlaneButton" class="btn btn-update">Add Airport</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <div class="modal fade" id="modal-primary">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" asp-controller="Airport" asp-action="Update">
+                        <div class="modal-header">
+                            <h4 class="modal-title">
+                                Airport Information
+                                <i class="fa-solid fa-circle-info" style="font-size: 18px; color: #33d1cc"></i>
+                            </h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input asp-for="Airport.AirportID" id="modal-airport-id" type="hidden" />
+                            <div class="row" style="margin:0">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="Airport.IATACode" class="small mb-1">IATA Code</label>
+                                        <input asp-for="Airport.IATACode" id="modal-IATACode" class="form-control" type="text" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Airport.AirportName" class="small mb-1">Airport Name</label>
+                                        <input asp-for="Airport.AirportName" id="modal-name" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Airport.CityOfAirport" class="small mb-1">City Of Airport</label>
+                                        <input asp-for="Airport.CityOfAirport" id="modal-city" class="form-control" type="text" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1">Reservation Status</label>
+                                        <select id="ticketClass" class="form-control select2 text-danger" style="width: 100%;" disabled>
+                                            <option value="0" selected>False</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Airport.CountryOfAirport" class="small mb-1">Country Of Airport</label>
+                                        <input asp-for="Airport.CountryOfAirport" id="modal-country" class="form-control" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-end">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" id="addToPlaneButton" class="btn btn-update">Update Airport</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+    </div>
+</section>
+
+<script>
+    // Update modal content with the clicked seat data
+    function editAirport(airportID, IATACode, airportName, city, country) {
+
+        // Sending other values to thier tags
+        $('#modal-airport-id').val(airportID);
+        $('#modal-IATACode').val(IATACode);
+        $('#modal-name').val(airportName);
+        $('#modal-city').val(city);
+        $('#modal-country').val(country);
+    }
+</script>
