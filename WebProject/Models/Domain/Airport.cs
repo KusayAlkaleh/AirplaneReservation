@@ -16,6 +16,9 @@ namespace WebProject.Models.Domain
         [Required]
         public string CountryOfAirport { get; set; }
 
+        [Required]
+        public string IATACode { get; set; }
+
         // Navigation property
         public virtual ICollection<Flight> Flights { get; set; }
     }
