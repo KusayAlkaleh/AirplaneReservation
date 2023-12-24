@@ -12,5 +12,6 @@ namespace WebProject.Data
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Airport> Airports { get; set; }
         public DbSet<Flight> Flights { get; set; }
+        public DbSet<PaymentRecord> PaymentRecords { get; set; }
     }
 }

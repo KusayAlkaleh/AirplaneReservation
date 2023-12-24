@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model List<WebProject.Models.Domain.PaymentRecord>;
+<h2 class="mt-2"> Payment Records</h2>
+<table class="table mt-3">
+    <thead class="small text-uppercase bg-body text-muted">
+        <tr>
+            <th style="background-color:  #19283f ; font-weight:bold ;font-size:16px">Card Name</th>
+            <th style="background-color:  #19283f ; font-weight:bold ;font-size:16px">Card Number</th>
+            <th style="background-color:  #19283f ; font-weight:bold ;font-size:16px">Exp month</th>
+            <th style="background-color:  #19283f ; font-weight:bold ;font-size:16px">Exp Year</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td>@obj.Name</td>
+                <td>@obj.CardNumber</td>
+                <td>@obj.ExpMonth</td>
+                <td>@obj.ExpYear</td>
+            </tr>
+        }
+    </tbody>
+<table/>
