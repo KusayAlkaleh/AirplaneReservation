@@ -7,19 +7,15 @@ namespace WebProject.Models.Domain
         [Key]
         public int AirportID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please Enter the Name of Airport!")]
         public string AirportName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please Enter the Name of the Airport City!")]
         public string CityOfAirport { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please Enter the Name of the Airport Country!")]
         public string CountryOfAirport { get; set; }
 
-        [Required]
         public string IATACode { get; set; }
-
-        // Navigation property
-        public virtual ICollection<Flight> Flights { get; set; }
     }
 }

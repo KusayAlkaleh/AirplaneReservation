@@ -7,20 +7,20 @@ namespace WebProject.Models.Domain
         [Key]
         public int PlaneID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please Enter the Plane Model!")]
         public string PlaneModel { get; set; }
 
-        [Required]
-        public int Capacity { get; set; }
+        [Required(ErrorMessage = "Please Enter the Plane Capacity Number!")]
+        public int? Capacity { get; set; }
 
-        [Required]
-        public int YearProduction { get; set; }
+        [Required(ErrorMessage = "Please Enter the Year Production of Plane!")]
+        public int? YearProduction { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please Select the Owner Company!")]
         public string OwnerCompany { get; set; }
 
         [Required]
-        public int AvailableSeats { get; set; }
+        public int? AvailableSeats { get; set; }
 
         [Required]
         public int ReservedSeats { get; set; }
