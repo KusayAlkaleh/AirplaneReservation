@@ -12,8 +12,8 @@ using WebProject.Data;
 namespace WebProject.Migrations
 {
     [DbContext(typeof(DemoDbContext))]
-    [Migration("20231216132059_UpdatingSomeTables")]
-    partial class UpdatingSomeTables
+    [Migration("20231225142245_InitializeTables")]
+    partial class InitializeTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,6 +44,10 @@ namespace WebProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("IATACode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("AirportID");
 
                     b.ToTable("Airports");
@@ -57,29 +61,35 @@ namespace WebProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FlightID"), 1L, 1);
 
-                    b.Property<int>("AirportId")
+                    b.Property<DateTime>("ArrivalDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ArrivingPoint")
                         .HasColumnType("int");
 
-                    b.Property<string>("ArrivingPoint")
+                    b.Property<DateTime>("ArrivingTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DepartureDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FlightNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FlightDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("PlaneId")
                         .HasColumnType("int");
 
-                    b.Property<string>("StartingPoint")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("StartingPoint")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartingTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("TotalSeats")
                         .HasColumnType("int");
 
                     b.HasKey("FlightID");
-
-                    b.HasIndex("AirportId");
 
                     b.HasIndex("PlaneId");
 
@@ -94,7 +104,12 @@ namespace WebProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlaneID"), 1L, 1);
 
-                    b.Property<int>("Capacity")
+                    b.Property<int?>("AvailableSeats")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Capacity")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("OwnerCompany")
@@ -105,7 +120,11 @@ namespace WebProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("YearProduction")
+                    b.Property<int>("ReservedSeats")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("YearProduction")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("PlaneID");
@@ -133,7 +152,8 @@ namespace WebProject.Migrations
                     b.Property<int>("SeatNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("SeatType")
+                    b.Property<int?>("SeatType")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("SeatID");
@@ -190,19 +210,11 @@ namespace WebProject.Migrations
 
             modelBuilder.Entity("WebProject.Models.Domain.Flight", b =>
                 {
-                    b.HasOne("WebProject.Models.Domain.Airport", "Airport")
-                        .WithMany("Flights")
-                        .HasForeignKey("AirportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WebProject.Models.Domain.Plane", "Plane")
                         .WithMany("Flights")
                         .HasForeignKey("PlaneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Airport");
 
                     b.Navigation("Plane");
                 });
@@ -216,11 +228,6 @@ namespace WebProject.Migrations
                         .IsRequired();
 
                     b.Navigation("Plane");
-                });
-
-            modelBuilder.Entity("WebProject.Models.Domain.Airport", b =>
-                {
-                    b.Navigation("Flights");
                 });
 
             modelBuilder.Entity("WebProject.Models.Domain.Plane", b =>
