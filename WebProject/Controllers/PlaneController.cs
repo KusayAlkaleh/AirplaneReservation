@@ -39,7 +39,7 @@ namespace WebProject.Controllers
             if(model.plane != null)
             {
                 //Set value for available seats
-                model.plane.AvailableSeats = model.plane.Capacity;
+                model.plane.AvailableSeats = model.plane.Capacity ?? 0;
 
                 // Adding to database
                 await DemoDbContext.Planes.AddAsync(model.plane);
