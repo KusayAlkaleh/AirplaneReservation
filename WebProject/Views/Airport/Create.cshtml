@@ -38,8 +38,8 @@
             <div class="col-12">
                 <div class="callout callout-info">
                     <h5><i class="fa-solid fa-circle-info"></i> Note:</h5>
-                    I hope this note finds you well. As we continue to enhance our Airport Management System,
-                    I would like to bring your attention to the following updates and
+                    Exercise caution when utilizing the "Update and Delete" functionalities on the airport management page.
+                    Ensure accuracy in updates and double-check details before deletion, as these actions are irreversible.
                 </div>
             </div>
             <div class="col-12">
@@ -112,18 +112,20 @@
                             <div class="row" style="margin:0">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label asp-for="Airport.IATACode" class="small mb-1">IATA Code</label>
-                                        <input asp-for="Airport.IATACode" class="form-control" type="text" value="LHR (This section optional)" />
+                                        <label asp-for="Airport.IATACode" class="small mb-1">IATA Code (This section optional)</label>
+                                        <input asp-for="Airport.IATACode" class="form-control" type="text" value="LHR" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="Airport.AirportName" class="small mb-1">Airport Name</label>
                                         <input asp-for="Airport.AirportName" class="form-control" type="text" />
+                                        <span asp-validation-for="Airport.AirportName" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="Airport.CityOfAirport" class="small mb-1">City Of Airport</label>
                                         <input asp-for="Airport.CityOfAirport" class="form-control" type="text" />
+                                        <span asp-validation-for="Airport.CityOfAirport" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -136,6 +138,7 @@
                                     <div class="form-group">
                                         <label asp-for="Airport.CountryOfAirport" class="small mb-1">Country Of Airport</label>
                                         <input asp-for="Airport.CountryOfAirport" class="form-control" type="text" />
+                                        <span asp-validation-for="Airport.CountryOfAirport" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
@@ -211,6 +214,12 @@
         <!-- /.modal -->
     </div>
 </section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
 <script>
     // Update modal content with the clicked seat data

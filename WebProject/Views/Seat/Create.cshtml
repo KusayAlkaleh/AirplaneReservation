@@ -57,7 +57,7 @@
                                     <div class="form-group">
                                         <label  asp-for="Seat.PlaneId" class="small mb-1">Plane Existing</label>
                                         <select asp-for="Seat.PlaneId" id="planeSelect" class="form-control select2" style="width: 100%;" onchange="showAlertOrNot()">
-                                            <option selected="selected" value="notSelected">Not Selected Yet!</option>
+                                            <option selected="selected" value="">Not Selected Yet!</option>
                                             @foreach (var plane in Model.Planes)
                                             {
                                                 
@@ -66,21 +66,24 @@
                                                 <option value="@optionValue" >@plane.PlaneModel</option>
                                             }
                                         </select>
+                                        <span asp-validation-for="Seat.PlaneId" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="Seat.SeatNumber" class="small mb-1">Seat Number</label>
                                         <input asp-for="Seat.SeatNumber" class="form-control" type="text" />
+                                        <span asp-validation-for="Seat.SeatNumber" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
                                         <label  asp-for="Seat.SeatType" class="small mb-1">Seat Type</label>
                                         <select asp-for="Seat.SeatType" id="ticketClass" class="form-control select2" style="width: 100%;" onchange="updatePrice()">
-                                            <option selected="selected" value="notSelected">Not Selected Yet!</option>
+                                            <option value="">Not Selected Yet!</option>
                                             <option value="0">Economy</option>
                                             <option value="1">Business</option>
                                             <option value="2">First</option>
                                         </select>
+                                        <span asp-validation-for="Seat.SeatType" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -150,7 +153,12 @@
         <!-- /.card -->
     </div>
     <!-- /.container-fluid -->
-    </section>
+</section>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
 <script>
 
@@ -193,4 +201,5 @@
         document.getElementById("ticketPrice").value = price;
     }
 </script>
+
 

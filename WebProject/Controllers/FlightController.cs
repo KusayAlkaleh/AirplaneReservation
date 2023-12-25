@@ -31,9 +31,6 @@ namespace WebProject.Controllers
         {
             if(model != null && model.Flight != null)
             {
-                //set AirportId from StartingPoint
-                model.Flight.AirportId = int.Parse(model.Flight.StartingPoint);
-
                 await DemoDbContext.Flights.AddAsync(model.Flight);
                 await DemoDbContext.SaveChangesAsync();
 
@@ -41,6 +38,24 @@ namespace WebProject.Controllers
             }
 
             return RedirectToAction("Admin", "Index");
+        }
+
+        
+        [HttpGet]
+        public async Task<IActionResult> ShowFlights()
+        {
+            // set new Model for display informatios
+            ListWithFlights model = new ListWithFlights();
+
+            // Create a dictionary to map airport IDs to their names
+            List<Airport> airports = await DemoDbContext.Airports.ToListAsync();
+
+            model.AirportNames = airports.ToDictionary(airport => airport.AirportID, airport => airport.AirportName);
+            model.Flights = await DemoDbContext.Flights.ToListAsync();
+
+            var a = 2;
+
+            return View(model);
         }
     }
 }

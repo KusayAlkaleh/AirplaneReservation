@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebProject.Migrations
 {
-    public partial class addingAllTables : Migration
+    public partial class InitializeTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +17,8 @@ namespace WebProject.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AirportName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CityOfAirport = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CountryOfAirport = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CountryOfAirport = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IATACode = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,7 +34,9 @@ namespace WebProject.Migrations
                     PlaneModel = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Capacity = table.Column<int>(type: "int", nullable: false),
                     YearProduction = table.Column<int>(type: "int", nullable: false),
-                    OwnerCompany = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    OwnerCompany = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AvailableSeats = table.Column<int>(type: "int", nullable: false),
+                    ReservedSeats = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,22 +70,19 @@ namespace WebProject.Migrations
                 {
                     FlightID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AirportId = table.Column<int>(type: "int", nullable: false),
                     PlaneId = table.Column<int>(type: "int", nullable: false),
-                    StartingPoint = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ArrivingPoint = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FlightDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FlightNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartingPoint = table.Column<int>(type: "int", nullable: false),
+                    ArrivingPoint = table.Column<int>(type: "int", nullable: false),
+                    StartingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ArrivingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DepartureDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ArrivalDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalSeats = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Flights", x => x.FlightID);
-                    table.ForeignKey(
-                        name: "FK_Flights_Airports_AirportId",
-                        column: x => x.AirportId,
-                        principalTable: "Airports",
-                        principalColumn: "AirportID",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Flights_Planes_PlaneId",
                         column: x => x.PlaneId,
@@ -115,11 +115,6 @@ namespace WebProject.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Flights_AirportId",
-                table: "Flights",
-                column: "AirportId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Flights_PlaneId",
                 table: "Flights",
                 column: "PlaneId");
@@ -133,6 +128,9 @@ namespace WebProject.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Airports");
+
+            migrationBuilder.DropTable(
                 name: "Flights");
 
             migrationBuilder.DropTable(
@@ -140,9 +138,6 @@ namespace WebProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Airports");
 
             migrationBuilder.DropTable(
                 name: "Planes");

@@ -1,0 +1,87 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@model WebProject.Models.ListWithFlights;
+
+
+
+<section class="content pt-4">
+    <div class="container-fluid">
+        <div class="row mb-4">
+            <div class="col-sm-6">
+                <h1 class="m-0 pb-1">Flights Details</h1>
+                <h5 class="m-0" style="color: #77777778">Updating, Deleting Flights </h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right" style="background-color: #f4f6f9;">
+                    <a asp-controller="Flight" asp-action="Create">
+                    <li class="breadcrumb-item text-primary">Flight</li>
+                    </a>
+                    <li class="breadcrumb-item text-primary"></li>
+                    <li class="breadcrumb-item active">Delete & Update</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="callout callout-info">
+                    <h5><i class="fa-solid fa-circle-info"></i> Note:</h5>
+                    Exercise extreme caution when performing update and delete operations on the flight page. These actions are irreversible.
+                    Verify accuracy before updating and confirm details before deleting. Data integrity is paramount.
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card card-default mt-3">
+                    <div class="card-header">
+                        <h3 class="card-title">Newly Added Flights</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-head-fixed text-nowrap m-0">
+                            <thead>
+                                <tr>
+                                    <th style="background-color: #19283f">Flight Number</th>
+                                    <th style="background-color: #19283f">Starting Point</th>
+                                    <th style="background-color: #19283f">Arriving Point</th>
+                                    <th style="background-color: #19283f">Starting Time</th>
+                                    <th style="background-color: #19283f">Arriving Time</th>
+                                    <th style="background-color: #19283f">Starting Date</th>
+                                    <th style="background-color: #19283f">Arrival Date</th>
+                                    <th style="background-color: #19283f">Adjustment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var flight in Model.Flights)
+                                {
+                                    <tr>
+                                        <td>@flight.FlightNumber</td>
+                                        <td>@Model.AirportNames[flight.StartingPoint]</td>
+                                        <td>@Model.AirportNames[flight.ArrivingPoint]</td>
+                                        <td>@flight.StartingTime.ToString("hh:mm tt")</td>
+                                        <td>@flight.ArrivingTime.ToString("hh:mm tt")</td>
+                                        <td>@flight.DepartureDate.ToString("MM/dd/yyyy")</td>
+                                        <td>@flight.ArrivalDate.ToString("MM/dd/yyyy")</td>
+                                        <td>
+                                            <i class="fa-solid fa-eye text-primary" style="cursor: pointer"></i>
+                                            <a  >
+                                                <i class="fa-regular fa-pen-to-square text-success ps-2 pe-2" data-toggle="modal" data-target="#modal-primary" style="cursor: pointer"></i>
+                                            </a>
+                                            <a>
+                                                <i class="fa-solid fa-trash-can text-danger" style="cursor: pointer"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

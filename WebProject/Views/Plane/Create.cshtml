@@ -47,7 +47,7 @@
                                 </a>
                             </h4>
                         </div>
-                        <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                        <div id="collapseOne" class="collapse" data-parent="#accordion">
                             <form asp-controller="Plane" asp-action="Create">
                                 <div class="card-body">
                                     <div class="row" style="margin:0">
@@ -61,17 +61,19 @@
                                             <div class="form-group">
                                                 <label asp-for="plane.PlaneModel" class="small mb-1">Plane Model</label>
                                                 <input asp-for="plane.PlaneModel" class="form-control" type="text" />
+                                                <span asp-validation-for = "plane.PlaneModel" class="text-danger" ></span>
                                             </div>
                                             <div class="form-group">
                                                 <label asp-for="plane.Capacity" class="small mb-1">Capacity of Plane</label>
                                                 <input asp-for="plane.Capacity" class="form-control" type="text" />
+                                                <span asp-validation-for="plane.Capacity" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label asp-for="plane.OwnerCompany" class="small mb-1">Owner Company</label>
                                                 <select asp-for="plane.OwnerCompany" class="form-control select2" style="width: 100%;">
-                                                    <option selected="selected" value="SkyJetEnterprises">SkyJet Enterprises</option>
+                                                    <option selected="selected" value="" >SkyJet Enterprises</option>
                                                     <option value="AeroLinkInternational">AeroLink International</option>
                                                     <option value="HorizonAviationGroup">Horizon Aviation Group</option>
                                                     <option value="GlobalWingsCorporation">Global Wings Corporation</option>
@@ -79,10 +81,12 @@
                                                     <option value="StratosphereHoldings">Stratosphere Holdings</option>
                                                     <option value="ZenithFlightSolutions">Zenith Flight Solutions</option>
                                                 </select>
+                                                <span asp-validation-for="plane.OwnerCompany" class="text-danger"></span>
                                             </div>
                                             <div class="form-group">
                                                 <label asp-for="plane.YearProduction" class="small mb-1">Year Production</label>
                                                 <input asp-for="plane.YearProduction" class="form-control" type="text" />
+                                                <span asp-validation-for="plane.YearProduction" class="text-danger"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -212,3 +216,9 @@
     </div>
     <!-- /.container-fluid -->
 </section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

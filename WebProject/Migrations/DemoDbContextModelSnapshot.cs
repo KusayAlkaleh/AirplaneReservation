@@ -59,9 +59,6 @@ namespace WebProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FlightID"), 1L, 1);
 
-                    b.Property<int?>("AirportID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("ArrivalDate")
                         .HasColumnType("datetime2");
 
@@ -92,8 +89,6 @@ namespace WebProject.Migrations
 
                     b.HasKey("FlightID");
 
-                    b.HasIndex("AirportID");
-
                     b.HasIndex("PlaneId");
 
                     b.ToTable("Flights");
@@ -107,10 +102,12 @@ namespace WebProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlaneID"), 1L, 1);
 
-                    b.Property<int>("AvailableSeats")
+                    b.Property<int?>("AvailableSeats")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int>("Capacity")
+                    b.Property<int?>("Capacity")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("OwnerCompany")
@@ -124,7 +121,8 @@ namespace WebProject.Migrations
                     b.Property<int>("ReservedSeats")
                         .HasColumnType("int");
 
-                    b.Property<int>("YearProduction")
+                    b.Property<int?>("YearProduction")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("PlaneID");
@@ -152,7 +150,8 @@ namespace WebProject.Migrations
                     b.Property<int>("SeatNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("SeatType")
+                    b.Property<int?>("SeatType")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("SeatID");
@@ -209,10 +208,6 @@ namespace WebProject.Migrations
 
             modelBuilder.Entity("WebProject.Models.Domain.Flight", b =>
                 {
-                    b.HasOne("WebProject.Models.Domain.Airport", null)
-                        .WithMany("Flights")
-                        .HasForeignKey("AirportID");
-
                     b.HasOne("WebProject.Models.Domain.Plane", "Plane")
                         .WithMany("Flights")
                         .HasForeignKey("PlaneId")
@@ -231,11 +226,6 @@ namespace WebProject.Migrations
                         .IsRequired();
 
                     b.Navigation("Plane");
-                });
-
-            modelBuilder.Entity("WebProject.Models.Domain.Airport", b =>
-                {
-                    b.Navigation("Flights");
                 });
 
             modelBuilder.Entity("WebProject.Models.Domain.Plane", b =>

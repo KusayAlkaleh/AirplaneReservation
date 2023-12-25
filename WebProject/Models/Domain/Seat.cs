@@ -8,14 +8,15 @@ namespace WebProject.Models.Domain
         [Key]
         public int SeatID { get; set; }
 
+        [Required(ErrorMessage = "Please Select The Type of plane!")]
         [ForeignKey("Plane")]
         public int PlaneId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please Enter Seat Number!")]
         public int SeatNumber { get; set; }
 
-        [Required]
-        public int SeatType { get; set; }
+        [Required(ErrorMessage = "Please Select Seat Type!")]
+        public int? SeatType { get; set; }
 
         [Required]
         public bool ReservationStatus { get; set ; }
