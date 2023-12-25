@@ -18,7 +18,6 @@
 
 <section class="content pt-4">
     <div class="container-fluid">
-        <!-- /.row -->
         <div class="row mb-4">
             <div class="col-sm-6">
                 <h1 class="m-0 pb-1">Flights Control</h1>
@@ -46,6 +45,11 @@
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button"
+                                    class="btn btn-tool"
+                                    data-card-widget="remove">
+                                <i class="fas fa-times"></i>
                             </button>
                         </div>
                     </div>
@@ -85,7 +89,7 @@
                     </div>
                     <!-- /.card-body -->
                 </div>
-                <a class="btn btn-primary btn-block mb-3">Show All Flights</a>
+                <a asp-controller="Flight" asp-action="ShowFlights" class="btn btn-primary btn-block mb-3">Show All Flights</a>
                 <!-- /.card -->
             </div>
             <div class="col-md-9">
@@ -96,6 +100,11 @@
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button"
+                                    class="btn btn-tool"
+                                    data-card-widget="remove">
+                                <i class="fas fa-times"></i>
                             </button>
                         </div>
                     </div>
@@ -139,40 +148,45 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label asp-for="Flight.FlightNumber" class="small mb-1" for="inputUsername">Flight Number ( Is like a unique code for your journey. For example, 'DL1234' )</label>
-                                                        <input asp-for="Flight.FlightNumber" class="form-control" id="inputUsername" type="text" value="DL1234 (Example)">
+                                                        <input asp-for="Flight.FlightNumber" class="form-control" id="inputUsername" type="text" value="DL1234">
+                                                        <span asp-validation-for="Flight.FlightNumber" class="text-danger" ></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label  asp-for="Flight.StartingPoint" class="small mb-1">Departure Airport</label>
                                                         <select asp-for="Flight.StartingPoint" class="form-control select2" id="start-airport-modal" style="width: 100%;" onchange="showAlertOrNot()">
-                                                            <option selected="selected">Not Selected Yet!</option>
+                                                            <option selected="selected" value="">Not Selected Yet!</option>
                                                             @foreach (var airport in Model.Airports)
                                                             {
                                                                 <option value="@airport.AirportID">@airport.AirportName</option>
                                                             }
                                                         </select>
+                                                        <span asp-validation-for="Flight.StartingPoint" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="Flight.StartingTime" class="small mb-1">Departure Time</label>
                                                         <input asp-for="Flight.StartingTime" id="start-time-modal" class="form-control" type="time" onchange="showAlertOrNotTime()">
+                                                        <span asp-validation-for="Flight.StartingTime" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label  asp-for="Flight.ArrivingPoint" class="small mb-1">Arrival Airport</label>
                                                         <select asp-for="Flight.ArrivingPoint" class="form-control select2" id="arriving-airport-modal" style="width: 100%;" onchange="showAlertOrNot()">
-                                                            <option selected="selected">Not Selected Yet!</option>
+                                                            <option selected="selected" value="" >Not Selected Yet!</option>
                                                             @foreach (var airport in Model.Airports)
                                                             {
                                                                 <option value="@airport.AirportID">@airport.AirportName</option>
                                                             }
                                                         </select>
+                                                        <span asp-validation-for="Flight.ArrivingPoint" class="text-danger"></span>
                                                     </div>
                                                     
                                                     <div class="form-group">
                                                         <label asp-for="Flight.ArrivingTime" class="small mb-1">Arrival Time</label>
                                                         <input asp-for="Flight.ArrivingTime" id="arrival-time-modal" class="form-control" type="time" onchange="showAlertOrNotTime()">
+                                                        <span asp-validation-for="Flight.ArrivingTime" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -190,7 +204,7 @@
                                             </div>
                                             <div class="row justify-content-end d-flex align-items-center " style="margin:0">
                                                 <div class="col-md-4 justify-content-end d-flex mt-4">
-                                                    <input id="save-button" type="button" class="btn btn-update" onclick="stepper.next()" value="Save and Continue">
+                                                    <button id="save-button" type="button" class="btn btn-update" onclick="stepper.next()">Save and Continue</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -215,6 +229,7 @@
                                                                 </option>
                                                             }
                                                         </select>
+                                                        <span asp-validation-for="Flight.PlaneId" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -243,7 +258,7 @@
                                         <div class="row justify-content-end d-flex align-items-center " style="margin:0">
                                             <div class="col-md-4 justify-content-end d-flex mt-4">
                                                 <input type="button" class="btn btn-secondary" onclick="stepper.previous()" style="margin-right: 7px" value="Previous">
-                                                <input type="submit" class="btn btn-update" value="Create Flight">
+                                                <button type="submit" class="btn btn-update">Create Flight</button>
                                             </div>
                                         </div>
                                     </div>
@@ -260,6 +275,11 @@
     </div>
 </section>
 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
 <script>
 
