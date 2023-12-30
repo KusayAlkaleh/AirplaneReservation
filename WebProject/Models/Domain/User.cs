@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebProject.Data;
 
 namespace WebProject.Models.Domain
 {
@@ -31,6 +32,11 @@ namespace WebProject.Models.Domain
 		[Required(ErrorMessage = "Please select your class type!")]
 		public int ClassType { get; set; }
         public string ProfileImg { get; set; }
+
+
+
+        // Navigation property
+        public virtual ICollection<Reservation> Reservation { get; set; }
 
     }
 }
