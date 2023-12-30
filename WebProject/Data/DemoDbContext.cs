@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WebProject.Models.Domain;
 
 namespace WebProject.Data
 {
-    public class DemoDbContext : DbContext
+    public class DemoDbContext : IdentityDbContext
     {
         public DemoDbContext(DbContextOptions options) : base(options) { }
 
@@ -12,5 +13,6 @@ namespace WebProject.Data
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Airport> Airports { get; set; }
         public DbSet<Flight> Flights { get; set; }
+        public DbSet<Reservation> Reservation { get; set; }
     }
 }
