@@ -1,0 +1,99 @@
+﻿@model WebProject.Models.SearchFlights;
+
+<div style="background-color: #DDD">
+    <div class="container pt-4 pb-4">
+        <h1 class="upcomming ">Available Flights </h1>
+
+        @foreach (var flight in Model.Flights)
+        {
+            <div class="item">
+            <div class="item-right">
+                <h2 class="num">@flight.DepartureDate.Day</h2>
+                <p class="day">@flight.DepartureDate.ToString("MMM")</p>
+                <span class="up-border"></span>
+                <span class="down-border"></span>
+            </div> <!-- end item-right -->
+
+            <div class="item-left">
+                <p class="event">Flight Number</p>
+                <h2 class="title">@flight.FlightNumber</h2>
+
+                @{
+                    var airportInfo = Model.AirportInfo.GetValueOrDefault(flight.StartingPoint);
+                    string airportName, airportCode, airportCity;
+
+                    airportName = airportInfo.Name;
+                    airportCode = airportInfo.code;
+                    airportCity = airportInfo.city;
+                }
+
+                <div class="sce">
+                        <div class="icon" style="color: #3498db">
+                        <i class="fa fa-table"></i>
+                    </div>
+                    <p>@flight.DepartureDate.ToString("dddd") <br /> @flight.StartingTime.ToString("h:mm tt")</p>
+                        
+                </div>
+                <div class="fix"></div>
+                <div class="loc">
+
+                    <div class="icon">
+                            <i class="fa-solid fa-location-dot" style="color: #e74c3c"></i>
+                    </div>
+                        <p>@airportName, @airportCity <br />IATACode: @airportCode </p>
+                        
+                </div>
+                <div class="fix"></div>
+                    <button class="btn btn-primary showModalBtn" style="float: right;">
+                        Buy Ticket
+                    </button>
+            </div>
+        </div> 
+        }
+        <div class="modal fade" id="overlay">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            <i class="fa-solid fa-circle-check text-success" style="font-size: 27px"></i>
+                            Your Ticket is Reserved
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="timerDisplay" style="color: #777">It Will Close in <span id="timer" class="text-danger" >5</span> Seconds</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Add event listeners to all buttons with class 'showModalBtn'
+    const showModalButtons = document.querySelectorAll('.showModalBtn');
+    showModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const countdownTime = 5; // Set the countdown time in seconds
+            $('#overlay').modal('show');
+            startCountdown(countdownTime);
+        });
+    });
+
+    function startCountdown(seconds) {
+        let countdown = seconds;
+        const timerElement = document.getElementById('timer');
+
+        timerElement.textContent = 5;
+
+        const countdownInterval = setInterval(() => {
+            timerElement.textContent = countdown;
+            countdown--;
+
+            if (countdown < 0) {
+                clearInterval(countdownInterval);
+                $('#overlay').modal('hide');
+            }
+        }, 1000);
+    }
+
+</script>

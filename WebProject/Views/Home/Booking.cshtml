@@ -1,0 +1,111 @@
+﻿@model WebProject.Models.SearchFlights;
+
+
+<div id="booking" class="section">
+	<div class="section-center">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="booking-cta">
+						<h2>Book your flight today</h2>
+						<p>Secure your seat in the skies by booking your flight today!</p>
+					</div>
+				</div>
+				<div class="col-md-7 col-md-offset-1">
+					<div class="booking-form">
+						<form method="post" asp-action="ShowFlights">
+							<div class="form-group">
+								<div class="form-checkbox">
+									<label for="roundtrip">
+										<input type="radio" id="roundtrip" name="flight-type">
+										<span></span>Roundtrip
+									</label>
+									<label for="one-way">
+										<input type="radio" id="one-way" name="flight-type">
+										<span></span>One way
+									</label>
+									<label for="multi-city">
+										<input type="radio" id="multi-city" name="flight-type">
+										<span></span>Multi-City
+									</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<span   asp-validation-for="StartAirport" class="form-label">Flying from</span>
+										<select asp-for="StartAirport" class="form-control">
+											@foreach (var airport in Model.Airports)
+											{
+												<option value="@airport.AirportID">@airport.AirportName</option>
+											}
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<span   asp-validation-for="ArrivalAirport" class="form-label">Flyning to</span>
+										<select asp-for="ArrivalAirport" class="form-control">
+											@foreach (var airport in Model.Airports)
+											{
+												<option value="@airport.AirportID">@airport.AirportName</option>
+											}
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<span asp-validation-for="DateOfFlight" class="form-label">Departing Date</span>
+										<input asp-for="DateOfFlight" class="form-control" type="date" min="<?php echo date('Y-m-d'); ?>">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<span class="form-label">Number of Passenger </span>
+										<input class="form-control" type="text" value="1" readonly >
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<span   asp-validation-for="PassengerType" class="form-label">Passenger Selection</span>
+										<select asp-for="PassengerType" class="form-control">
+											<option value="0" >Adult [+12]</option>
+											<option value="1">Student [12 - 34]</option>
+											<option value="2">Child [2 - 11]</option>
+										</select>
+										<span class="select-arrow"></span>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<span asp-validation-for="Gabin" class="form-label">Cabin Type</span>
+										<select asp-for="Gabin" class="form-control">
+											<option value="0">Economy Class</option>
+											<option value="1">Business Class</option>
+											<option value="2">First Class</option>
+										</select>
+										<span class="select-arrow"></span>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<span class="form-label">Price</span>
+										<input class="form-control" type="text" value="0" readonly>
+										<span class="select-arrow"></span>
+									</div>
+								</div>
+							</div>
+							<div class="form-btn">
+								<button class="submit-btn">Show flights</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
