@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using WebProject.Models.Domain;
 
 namespace WebProject.Repositories.Implementation
 {
