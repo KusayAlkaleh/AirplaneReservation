@@ -5,6 +5,7 @@ namespace WebProject.Models.DTO
     public class LoginModel
     {
         [Required(ErrorMessage = "Please enter your emai!")]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Please enter your password!")]
