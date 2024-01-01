@@ -1,12 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebProject.Data;
 
 namespace WebProject.Controllers
 {
     public class ReservationController : Controller
     {
-        public IActionResult Index()
+        private readonly DemoDbContext DemoDbContext;
+        public ReservationController(DemoDbContext mvcDemoDbContext)
         {
-            return View();
+            this.DemoDbContext = mvcDemoDbContext;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var reservationsInformation = await DemoDbContext.Reservation.ToListAsync();
+
+            if( reservationsInformation == null )
+            {
+                return NotFound();
+            }
+
+            return View(reservationsInformation);
         }
     }
 }

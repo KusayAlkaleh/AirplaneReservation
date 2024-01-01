@@ -1,1 +1,94 @@
-﻿
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model List<WebProject.Models.Domain.Reservation>;
+
+
+<style>
+    .btn-update {
+        color: white;
+        background-color: var(--red-color);
+    }
+
+    .btn-update:hover {
+        color: white;
+        background-color: #dc3545;
+    }
+</style>
+
+<section class="content pt-4">
+    <div class="container-fluid">
+        <div class="row mb-4">
+            <div class="col-sm-6">
+                <h2 class="m-0 pb-1">Airport Mangement</h2>
+                <h5 class="m-0" style="color: #77777778">Adding, Updating Reser </h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right" style="background-color: #f4f6f9;">
+                    <a asp-controller="Reservation" asp-action="Index">
+                    <li class="breadcrumb-item text-primary">Flight</li>
+                    </a>
+                    <li class="breadcrumb-item text-primary"></li>
+                    <li class="breadcrumb-item active">Update & Delete</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-default mt-3">
+                    <div class="card-header">
+                        <h3 class="card-title">Newly Added Flights</h3>
+
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <button type="button" class="btn btn-update float-right" data-toggle="modal" data-target="#modal-default" style="font-size: 100%">
+                                    <i class="fas fa-plus"></i> Add an Airport
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-head-fixed text-nowrap m-0">
+                            <thead>
+                                <tr>
+                                    <th style="background-color: #19283f">Reservation ID</th>
+                                    <th style="background-color: #19283f">User ID</th>
+                                    <th style="background-color: #19283f">Flight ID</th>
+                                    <th style="background-color: #19283f">Seat ID</th>
+                                    <th style="background-color: #19283f">Reservation Date</th>
+                                    <th style="background-color: #19283f">Adjustment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var reservation in Model)
+                                {
+                                    <tr>
+                                        <td>@reservation.ReservationsID</td>
+                                        <td>@reservation.AppUser</td>
+                                        <td>@reservation.FightID</td>
+                                        <td>@reservation.SeatID</td>
+                                        <td>@reservation.ReservationDate</td>
+                                        <td>
+                                            <i class="fa-solid fa-eye text-primary" style="cursor: pointer"></i>
+                                            <a>
+                                                <i class="fa-regular fa-pen-to-square text-success ps-2 pe-2" data-toggle="modal" data-target="#modal-primary" style="cursor: pointer"></i>
+                                            </a>
+                                            <a asp-controller="Airport" asp-action="Delete">
+                                                <i class="fa-solid fa-trash-can text-danger" style="cursor: pointer"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
