@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using WebProject.Models.Domain;
 
 namespace WebProject.Models
@@ -6,10 +7,10 @@ namespace WebProject.Models
     public class SearchFlights
     {
         [Required(ErrorMessage = "Please selecet Departure Airport")]
-        public string? StartAirport { get; set; }
+        public int StartAirport { get; set; }
 
         [Required(ErrorMessage = "Please selecet Arrival Airport")]
-        public string? ArrivalAirport { get; set; }
+        public int ArrivalAirport { get; set; }
 
         [Required(ErrorMessage = "Please selecet Your Flight Date")]
         public DateTime DateOfFlight { get; set; }
@@ -24,6 +25,7 @@ namespace WebProject.Models
         // Helper Variables
         public List<Airport> Airports { get; set; }
         public List<Flight> Flights { get; set; }
+        public Dictionary<string, int> FlightsInfo { get; set; }
         public Dictionary<int, (string code, string Name, string city)> AirportInfo { get; set; }
     }
 }
