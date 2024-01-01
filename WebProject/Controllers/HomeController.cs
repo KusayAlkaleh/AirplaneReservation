@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Linq;
@@ -14,12 +15,13 @@ namespace WebProject.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 		private readonly DemoDbContext DemoDbContext;
-
-		public HomeController(ILogger<HomeController> logger, DemoDbContext mvcDemoDbContext)
+        private readonly IStringLocalizer<HomeController> _localizer;
+        public HomeController(ILogger<HomeController> logger, DemoDbContext mvcDemoDbContext, IStringLocalizer<HomeController> localizer)
         {
+            _localizer = localizer;
             _logger = logger;
-			this.DemoDbContext = mvcDemoDbContext;
-		}
+            this.DemoDbContext = mvcDemoDbContext;
+        }
         [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
@@ -34,6 +36,8 @@ namespace WebProject.Controllers
 
         public IActionResult Index()
         {
+            @ViewData["Taste the Creativity"] = _localizer["Taste the Creativity"];
+            @ViewData["We Make Awesome Graphic and Web Design"] = _localizer["We Make Awesome Graphic and Web Design"];
             return View();
         }
 

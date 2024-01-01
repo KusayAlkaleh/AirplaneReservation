@@ -1,6 +1,8 @@
-﻿<div class="landing d-flex justify-content-center align-items-center">
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+<div class="landing d-flex justify-content-center align-items-center">
     <div class="text-center text-light" >
-        <h1>Taste the Creativity</h1>
+        <h1>@ViewData["Taste the Creativity"]</h1>
         <p class="fs-6 text-white-50 mb-5">We make aswsome graphic and web design</p>
         <a class="main-btn">Get Started</a>
     </div>

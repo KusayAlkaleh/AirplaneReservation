@@ -48,38 +48,6 @@
                         <li class="nav-item p-2 p-lg-3">
                             <a class="nav-link" >Contanact</a>
                         </li>
-              @*           <li>
-                            <!-- Include the language selector partial -->
-                            <div id="language-selector">
-                                @await Html.PartialAsync("_LanguageSelectorPartial")
-                            </div>
-                        </li>
-                          *@
-                     </ul>
-                  @*    <ul class="dropdown-menu">
-                             <li>
-                                 <a asp-controller="Home"
-                                    asp-action="ChangeLanguage"
-                                    asp-route-culture="en-US"
-                                    class="dropdown-item">
-                                     <i class="flag-icon flag-icon-gb"></i> English
-                                 </a>
-                             </li>
-                             <li>
-                                 <a asp-controller="Home"
-                                    asp-action="ChangeLanguage"
-                                    asp-route-culture="fr-FR"
-                                    class="dropdown-item">
-                                     <i class="flag-icon flag-icon-gb"></i> French
-                                 </a>
-                                 <a asp-controller="Home"
-                                    asp-action="ChangeLanguage"
-                                    asp-route-culture="tr-TR"
-                                    class="dropdown-item">
-                                     <i class="flag-icon flag-icon-gb"></i> Türkçe
-                                 </a>
-                             </li>
-                         </ul> *@
                     <li>
                         <div class="col-md-6 text-right">
                             @await Html.PartialAsync("_SelectLanguagePartial")
