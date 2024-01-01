@@ -72,7 +72,7 @@ namespace WebProject.Controllers
 
 			var result = await _service.RegistrationAsync(model);
 
-			TempData["msg"] = result.Message;
+            ViewBag.msj = true;
 			return RedirectToAction(nameof(Register));
         }
 

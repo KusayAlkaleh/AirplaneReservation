@@ -2,6 +2,8 @@
 using WebProject.Models.DTO;
 using WebProject.Repositories.Abstract;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using WebProject.Models.Domain;
 
 namespace WebProject.Controllers
 {
