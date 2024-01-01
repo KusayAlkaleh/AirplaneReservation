@@ -4,7 +4,7 @@ using WebProject.Models.Domain;
 
 namespace WebProject.Data
 {
-    public class DemoDbContext : IdentityDbContext
+    public class DemoDbContext : IdentityDbContext<ApplicationUser>
     {
         public DemoDbContext(DbContextOptions options) : base(options) { }
 

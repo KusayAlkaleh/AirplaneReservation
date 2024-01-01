@@ -6,6 +6,7 @@ using System.Linq;
 using WebProject.Data;
 using WebProject.Models;
 using WebProject.Models.Domain;
+using WebProject.Models.DTO;
 
 namespace WebProject.Controllers
 {
@@ -46,9 +47,9 @@ namespace WebProject.Controllers
         [HttpPost]
         public async Task<IActionResult> ShowFlights(SearchFlights model)
         {
+
             // get Airports inforamtion to display to user
             List<Airport> airportsInformation = await DemoDbContext.Airports.ToListAsync();
-
 
             // get data from [ REST API ] with using HttpClient
             HttpClient client = new HttpClient();
@@ -58,8 +59,15 @@ namespace WebProject.Controllers
             var jsonResponse = await response.Content.ReadAsStringAsync();
             allFlights = JsonConvert.DeserializeObject<List<Flight>>(jsonResponse);
 
+            // get flight info based on give start, arrival and date flight
+            var  allFlightsInfo = allFlights.Where(x => x.StartingPoint == model.StartAirport &&
+                                              x.ArrivingPoint == model.ArrivalAirport &&
+                                              x.ArrivalDate == model.DateOfFlight).ToList();
+
+
             SearchFlights flightsModel = new SearchFlights {
-                Flights = allFlights,
+                Flights = allFlightsInfo,
+                FlightsInfo = allFlights.ToDictionary(flight => flight.FlightNumber, flight => flight.TotalSeats),
                 AirportInfo = airportsInformation.ToDictionary(airport => airport.AirportID, airport => (
                 airport.IATACode,
                 airport.AirportName,

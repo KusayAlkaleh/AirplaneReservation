@@ -1,0 +1,43 @@
+﻿@model WebProject.Models.DTO.LoginModel;    
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card my-5">
+                <form class="card-body cardbody-color p-lg-5" asp-controller="Login" asp-action="Login">
+
+                    <div class="text-center">
+                        <img src="~/assets/login.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+                             width="200px" alt="profile">
+                    </div>
+
+                    <div class="mb-3">
+                        <input asp-for="Email" type="text" class="form-control" id="Username" aria-describedby="emailHelp"
+                               placeholder="User Name">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="mb-4">
+                        <input asp-for="Password" type="password" class="form-control" id="password" placeholder="password">
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="mainBtn" style="width: 100%">Login</button>
+                    </div>
+                    <div id="emailHelp" class="form-text text-center mb-2 mt-5 text-dark-50">
+                        Not
+                        Registered? 
+                        <a asp-controller="Login" asp-action="Register" class="text-dark fw-bold">
+                            Create an Account
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
