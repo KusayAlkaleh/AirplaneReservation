@@ -14,9 +14,11 @@
                     <div class="mb-3">
                         <input asp-for="Email" type="text" class="form-control" id="Username" aria-describedby="emailHelp"
                                placeholder="User Name">
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                     <div class="mb-4">
                         <input asp-for="Password" type="password" class="form-control" id="password" placeholder="password">
+                        <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="mainBtn" style="width: 100%">Login</button>
@@ -33,3 +35,9 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

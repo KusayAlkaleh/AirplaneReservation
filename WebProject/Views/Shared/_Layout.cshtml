@@ -27,6 +27,12 @@
                 </button>
                 <div class="collapse navbar-collapse" id="main">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        @if (User.IsInRole("user"))
+                        {
+                            <li class="nav-item p-2 p-lg-3">
+                                <a class="nav-link" asp-controller="User" asp-action="Profile">My Profile</a>
+                            </li>
+                        }
                         <li class="nav-item p-2 p-lg-3">
                             <a asp-controller="Home" asp-action="Index"  class="nav-link active" aria-current="page">Home</a>
                         </li>
@@ -43,14 +49,12 @@
                             <a class="nav-link" >Services</a>
                         </li>
                         <li class="nav-item p-2 p-lg-3">
-                            <a class="nav-link" >Protfolio</a>
-                        </li>
-                        <li class="nav-item p-2 p-lg-3">
                             <a class="nav-link" >About</a>
                         </li>
                         <li class="nav-item p-2 p-lg-3">
                             <a class="nav-link" >Contanact</a>
                         </li>
+                        
                     </ul>
                     <div class="search ps-3 pe-3 d-none d-lg-block">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -150,7 +154,7 @@
     </div>
     
     <!-- Jquery library -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <!-- Scripts created by me-->
     <script src="~/js/bondi.js" asp-append-version="true"></script>
     <!-- Bootstrap 5 -->

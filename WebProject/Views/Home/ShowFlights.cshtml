@@ -7,48 +7,52 @@
         @foreach (var flight in Model.Flights)
         {
             <div class="item">
-            <div class="item-right">
-                <h2 class="num">@flight.DepartureDate.Day</h2>
-                <p class="day">@flight.DepartureDate.ToString("MMM")</p>
-                <span class="up-border"></span>
-                <span class="down-border"></span>
-            </div> <!-- end item-right -->
-
-            <div class="item-left">
-                <p class="event">Flight Number</p>
-                <h2 class="title">@flight.FlightNumber</h2>
-
-                @{
-                    var airportInfo = Model.AirportInfo.GetValueOrDefault(flight.StartingPoint);
-                    string airportName, airportCode, airportCity;
-
-                    airportName = airportInfo.Name;
-                    airportCode = airportInfo.code;
-                    airportCity = airportInfo.city;
-                }
-
-                <div class="sce">
-                        <div class="icon" style="color: #3498db">
-                        <i class="fa fa-table"></i>
-                    </div>
-                    <p>@flight.DepartureDate.ToString("dddd") <br /> @flight.StartingTime.ToString("h:mm tt")</p>
-                        
+                <div class="item-right">
+                    <h2 class="num">@flight.DepartureDate.Day</h2>
+                    <p class="day">@flight.DepartureDate.ToString("MMM")</p>
+                    <span class="up-border"></span>
+                    <span class="down-border"></span>
                 </div>
-                <div class="fix"></div>
-                <div class="loc">
 
-                    <div class="icon">
-                            <i class="fa-solid fa-location-dot" style="color: #e74c3c"></i>
-                    </div>
-                        <p>@airportName, @airportCity <br />IATACode: @airportCode </p>
+                <div class="item-left">
+                    <p class="event">Flight Number</p>
+                    <h2 class="title">@flight.FlightNumber</h2>
+
+                    @{
+                        var airportInfo = Model.AirportInfo.GetValueOrDefault(flight.StartingPoint);
+                        string airportName, airportCode, airportCity;
+
+                        airportName = airportInfo.Name;
+                        airportCode = airportInfo.code;
+                        airportCity = airportInfo.city;
+                    }
+
+                    <div class="sce">
+                            <div class="icon" style="color: #3498db">
+                            <i class="fa fa-table"></i>
+                        </div>
+                        <p>@flight.DepartureDate.ToString("dddd") <br /> @flight.StartingTime.ToString("h:mm tt")</p>
                         
-                </div>
-                <div class="fix"></div>
+                    </div>
+                    <div class="fix"></div>
+                    <div class="loc">
+
+                        <div class="icon">
+                                <i class="fa-solid fa-location-dot" style="color: #e74c3c"></i>
+                        </div>
+                            <p>@airportName, @airportCity <br />
+                                Available Seats: 
+                                <span style="color: green; font-weight: bold">
+                                    @Model.FlightsInfo[flight.FlightNumber]
+                                </span>
+                            </p>
+                    </div>
+                    <div class="fix"></div>
                     <button class="btn btn-primary showModalBtn" style="float: right;">
                         Buy Ticket
                     </button>
-            </div>
-        </div> 
+                </div>
+            </div> 
         }
         <div class="modal fade" id="overlay">
             <div class="modal-dialog">

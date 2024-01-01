@@ -1,5 +1,22 @@
 ﻿@model WebProject.Models.DTO.RegistrationModel;
 
+@if (ViewBag.msj == true)
+{
+	<div class="toast-container" style="position: absolute; top: 100px; right: 10px; z-index: 999">
+		<div class="toast fade show bg-success text-white">
+			<div class="toast-header bg-success text-white">
+				<strong class="me-auto"><i class="bi-globe"></i> Registration Success</strong>
+				<small>just now</small>
+				<button type="button" class="btn-close " data-bs-dismiss="toast"></button>
+			</div>
+			<div class="toast-body">
+				Welcome to Our Website!
+			</div>
+		</div>
+	</div>
+
+}
+
 <div class="container">
 	<div class="form-wrap">
 		<div class="text-center imgCon">
@@ -93,6 +110,12 @@
 		</form>
 	</div>
 </div>
+
+<script>
+	$(document).ready(function () {
+		$('.toast').toast('show');
+	});
+</script>
 
 @section Scripts {
 	@{

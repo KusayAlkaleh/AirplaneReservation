@@ -1,4 +1,7 @@
-﻿@model WebProject.Models.Domain.User;
+﻿@model WebProject.Models.Domain.ApplicationUser;
+@using Microsoft.AspNetCore.Identity;
+
+
 @{
     string classType = "", gender = "";
     
@@ -14,7 +17,7 @@
     {
         gender = "Unknown";
     }
-
+   
 
     if (Model.ClassType == 0)
         classType = "Economy";
@@ -81,8 +84,8 @@
                         <form asp-controller="User" asp-action="Profile" method="post" >
                             <div class="mb-3">
                                 <input asp-for="Id" value="@Model.Id" type="hidden" />
-                                <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
-                                <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username">
+                                <label asp-for="@Model.UserName" class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
+                                <input asp-for="@Model.UserName" class="form-control" id="inputUsername" type="text" placeholder="Enter your username">
                             </div>
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">

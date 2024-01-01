@@ -58,7 +58,7 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<span asp-validation-for="DateOfFlight" class="form-label">Departing Date</span>
-										<input asp-for="DateOfFlight" class="form-control" type="date" min="<?php echo date('Y-m-d'); ?>">
+										<input asp-for="DateOfFlight" class="form-control" type="date">
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -109,3 +109,9 @@
 		</div>
 	</div>
 </div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
