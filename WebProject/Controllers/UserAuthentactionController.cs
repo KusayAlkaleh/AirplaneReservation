@@ -59,7 +59,7 @@ namespace WebProject.Controllers
             var result = await _service.RegistrationAsync(model);
 
             TempData["msg"] = result.Message;
-            return RedirectToAction(nameof(Registeration));
+            return RedirectToAction(nameof(Login));
         }
 
         [Authorize]
@@ -78,8 +78,8 @@ namespace WebProject.Controllers
                 UserName = "Admin",
                 FirstName = "qusay",
                 LastName = "alkaleh",
-                Email = "qusay@gmail.com",
-                Password = "Admin@12345#",
+                Email = "b211210566@ogr.sakarya.edu.tr",
+                Password = "qusayAlkaleh?333",
                 ProfileImg = "qusay"
             };
 

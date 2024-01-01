@@ -28,31 +28,34 @@
                     }
 
                     <div class="sce">
-                            <div class="icon" style="color: #3498db">
+                        <div class="icon" style="color: #3498db">
                             <i class="fa fa-table"></i>
                         </div>
                         <p>@flight.DepartureDate.ToString("dddd") <br /> @flight.StartingTime.ToString("h:mm tt")</p>
-                        
+
                     </div>
                     <div class="fix"></div>
                     <div class="loc">
 
                         <div class="icon">
-                                <i class="fa-solid fa-location-dot" style="color: #e74c3c"></i>
+                            <i class="fa-solid fa-location-dot" style="color: #e74c3c"></i>
                         </div>
-                            <p>@airportName, @airportCity <br />
-                                Available Seats: 
-                                <span style="color: green; font-weight: bold">
-                                    @Model.FlightsInfo[flight.FlightNumber]
-                                </span>
-                            </p>
+                        <p>
+                            @airportName, @airportCity <br />
+                            Available Seats:
+                            <span style="color: green; font-weight: bold">
+                                @Model.FlightsInfo[flight.FlightNumber]
+                            </span>
+                        </p>
                     </div>
                     <div class="fix"></div>
-                    <button class="btn btn-primary showModalBtn" style="float: right;">
-                        Buy Ticket
-                    </button>
+                    <a asp-route-id="@flight.FlightID" asp-action="BuySeat" asp-controller="Home" class="btn btn-primary showModalBtn" style="float: right;">
+                    Buy Ticket
+                    </a>
                 </div>
-            </div> 
+            </div>
+            
+            
         }
         <div class="modal fade" id="overlay">
             <div class="modal-dialog">

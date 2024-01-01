@@ -44,6 +44,13 @@ namespace WebProject.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BirthDay = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    ClassType = table.Column<int>(type: "int", nullable: false),
+                    ProfileImg = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -52,7 +59,6 @@ namespace WebProject.Migrations
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -265,7 +271,7 @@ namespace WebProject.Migrations
                 {
                     ReservationsID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FightID = table.Column<int>(type: "int", nullable: false),
                     SeatID = table.Column<int>(type: "int", nullable: false),
                     ReservationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -274,6 +280,12 @@ namespace WebProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reservation", x => x.ReservationsID);
+                    table.ForeignKey(
+                        name: "FK_Reservation_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reservation_Flights_FightID",
                         column: x => x.FightID,
@@ -286,12 +298,6 @@ namespace WebProject.Migrations
                         principalTable: "Seats",
                         principalColumn: "SeatID",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Reservation_Users_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -339,6 +345,11 @@ namespace WebProject.Migrations
                 column: "PlaneId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reservation_AppUserId",
+                table: "Reservation",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reservation_FightID",
                 table: "Reservation",
                 column: "FightID");
@@ -347,11 +358,6 @@ namespace WebProject.Migrations
                 name: "IX_Reservation_SeatID",
                 table: "Reservation",
                 column: "SeatID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Reservation_UserID",
-                table: "Reservation",
-                column: "UserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Seats_PlaneId",
@@ -383,6 +389,9 @@ namespace WebProject.Migrations
                 name: "Reservation");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -393,9 +402,6 @@ namespace WebProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Seats");
-
-            migrationBuilder.DropTable(
-                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Planes");

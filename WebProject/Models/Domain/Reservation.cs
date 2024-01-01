@@ -8,8 +8,8 @@ namespace WebProject.Models.Domain
         [Key]
         public int ReservationsID { get; set; }
 
-        [ForeignKey("User")]
-        public int UserID { get; set; }
+        [ForeignKey("AppUser")]
+        public string AppUserId { get; set; }
 
         [ForeignKey("Flight")]
         public int FightID { get; set; }
@@ -24,7 +24,7 @@ namespace WebProject.Models.Domain
 
 
         // Navigation property
-        public virtual User User { get; set; }
+        public virtual ApplicationUser AppUser { get; set; }
         public virtual Flight Flight { get; set; }
         public virtual Seat Seat { get; set; }
     }

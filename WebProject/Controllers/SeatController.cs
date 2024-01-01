@@ -41,10 +41,13 @@ namespace WebProject.Controllers
                 getInformationPlane.AvailableSeats--;
 
                 // update flight seats
-                var flightInfo = DemoDbContext.Flights.Where(x => x.PlaneId == getInformationPlane.PlaneID).Single();
-                flightInfo.TotalSeats++;
+                var flightInfo = await DemoDbContext.Flights.FirstOrDefaultAsync(x => x.PlaneId == getInformationPlane.PlaneID);
+                if(flightInfo != null)
+                {
+                    flightInfo.TotalSeats++;
+                    DemoDbContext.Flights.Update(flightInfo);
+                }
 
-                DemoDbContext.Flights.Update(flightInfo);
 
                 DemoDbContext.Planes.Update(getInformationPlane);
                 await DemoDbContext.Seats.AddAsync(model.Seat);
