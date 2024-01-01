@@ -41,12 +41,16 @@ namespace WebProject.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Flight>> PostFlight(Reservation reservation)
+        public async Task<Reservation> PostFlight([FromBody] Reservation reservation)
         {
+            var a = 2;
+
             DemoDbContext.Reservation.Add(reservation);
             await DemoDbContext.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetFlight), new { id = reservation.ReservationsID }, reservation);
+            Reservation res = new Reservation();
+
+            return res;
         }
 
         //[HttpPut("{id}")]

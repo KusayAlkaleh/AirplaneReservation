@@ -12,8 +12,8 @@ using WebProject.Data;
 namespace WebProject.Migrations
 {
     [DbContext(typeof(DemoDbContext))]
-    [Migration("20231231175504_update")]
-    partial class update
+    [Migration("20240101184001_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -323,8 +323,7 @@ namespace WebProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlaneID"), 1L, 1);
 
-                    b.Property<int?>("AvailableSeats")
-                        .IsRequired()
+                    b.Property<int>("AvailableSeats")
                         .HasColumnType("int");
 
                     b.Property<int?>("Capacity")
@@ -359,7 +358,8 @@ namespace WebProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReservationsID"), 1L, 1);
 
-                    b.Property<string>("ApplicationUserId")
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("FightID")
@@ -374,18 +374,13 @@ namespace WebProject.Migrations
                     b.Property<int>("SeatID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
                     b.HasKey("ReservationsID");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("FightID");
 
                     b.HasIndex("SeatID");
-
-                    b.HasIndex("UserID");
 
                     b.ToTable("Reservation");
                 });
@@ -530,9 +525,11 @@ namespace WebProject.Migrations
 
             modelBuilder.Entity("WebProject.Models.Domain.Reservation", b =>
                 {
-                    b.HasOne("WebProject.Models.Domain.ApplicationUser", null)
+                    b.HasOne("WebProject.Models.Domain.ApplicationUser", "AppUser")
                         .WithMany("Reservation")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WebProject.Models.Domain.Flight", "Flight")
                         .WithMany("Reservation")
@@ -546,17 +543,11 @@ namespace WebProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebProject.Models.Domain.User", "User")
-                        .WithMany("Reservation")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("AppUser");
 
                     b.Navigation("Flight");
 
                     b.Navigation("Seat");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebProject.Models.Domain.Seat", b =>
@@ -588,11 +579,6 @@ namespace WebProject.Migrations
                 });
 
             modelBuilder.Entity("WebProject.Models.Domain.Seat", b =>
-                {
-                    b.Navigation("Reservation");
-                });
-
-            modelBuilder.Entity("WebProject.Models.Domain.User", b =>
                 {
                     b.Navigation("Reservation");
                 });
