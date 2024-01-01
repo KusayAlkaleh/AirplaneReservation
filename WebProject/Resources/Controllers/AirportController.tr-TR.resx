@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add Airport" xml:space="preserve">
+    <value>Havaalanını Ekle</value>
+  </data>
   <data name="Add an Airport" xml:space="preserve">
     <value>Havaalanı ekle</value>
+  </data>
+  <data name="Adding, Updating Airports" xml:space="preserve">
+    <value>Havaalanını Ekleme ve Güncelleme</value>
   </data>
   <data name="Adjustment" xml:space="preserve">
     <value>Ayarlama</value>
@@ -135,14 +141,26 @@
   <data name="City Of Airport" xml:space="preserve">
     <value>Havaalanı Şehri</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
   <data name="Country Of Airport" xml:space="preserve">
     <value>Havaalanı Ülke</value>
   </data>
   <data name="IATA Code" xml:space="preserve">
     <value>IATA Kodu</value>
   </data>
+  <data name="Newly Added Airports" xml:space="preserve">
+    <value>Yeni eklenmiş Havaalanları</value>
+  </data>
+  <data name="Reservation Status" xml:space="preserve">
+    <value>Rezervasyon Durumu</value>
+  </data>
   <data name="Update &amp; Delete" xml:space="preserve">
     <value>Güncelleme ve Silme</value>
+  </data>
+  <data name="Update Airport" xml:space="preserve">
+    <value>Havaalanını Güncelle</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Hoşgeldiniz</value>

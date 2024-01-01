@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add Airport" xml:space="preserve">
+    <value>Add Airport</value>
+  </data>
   <data name="Add an Airport" xml:space="preserve">
     <value>Add an Airport</value>
+  </data>
+  <data name="Adding, Updating Airports" xml:space="preserve">
+    <value>Newly Added Airports</value>
   </data>
   <data name="Adjustment" xml:space="preserve">
     <value>Adjustment</value>
@@ -135,14 +141,26 @@
   <data name="City Of Airport" xml:space="preserve">
     <value>City Of Airport</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="Country Of Airport" xml:space="preserve">
     <value>Country Of Airport</value>
   </data>
   <data name="IATA Code" xml:space="preserve">
     <value>IATA Code</value>
   </data>
+  <data name="Newly Added Airports" xml:space="preserve">
+    <value>Newly Added Airports</value>
+  </data>
+  <data name="Reservation Status" xml:space="preserve">
+    <value>Reservation Status</value>
+  </data>
   <data name="Update &amp; Delete" xml:space="preserve">
     <value>Update &amp; Delete</value>
+  </data>
+  <data name="Update Airport" xml:space="preserve">
+    <value>Update Airport</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome</value>
