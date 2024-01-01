@@ -33,18 +33,19 @@ namespace WebProject.Controllers
             return View(usersInList);
 		}
 
-		public IActionResult FAQ()
-		{
-			return View();
-		}
-
 		[HttpGet]
         public async Task<IActionResult> ViewUsers()
 		{
-			var users = await DemoDbContext.Users.ToListAsync();
+            var usersInformations = await _userManager.GetUsersInRoleAsync("user");
 
-			return View(users);
-		}
+            // check if is found a users
+            if (usersInformations == null)
+                return NotFound();
+
+            var usersInList = usersInformations.ToList();
+
+            return View(usersInList);
+        }
 
 		[HttpGet]
 		public async Task<IActionResult> Delete(int userId)

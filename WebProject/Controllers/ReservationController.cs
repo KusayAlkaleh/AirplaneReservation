@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebProject.Data;
 
 namespace WebProject.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ReservationController : Controller
     {
         private readonly DemoDbContext DemoDbContext;

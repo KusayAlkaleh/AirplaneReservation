@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebProject.Data;
@@ -7,6 +8,7 @@ using WebProject.Models.Domain;
 
 namespace WebProject.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class PlaneController : Controller
     {
         private readonly DemoDbContext DemoDbContext;
