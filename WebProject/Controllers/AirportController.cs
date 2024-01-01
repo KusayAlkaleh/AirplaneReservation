@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Humanizer.Localisation;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using WebProject.Data;
 using WebProject.Models;
 using WebProject.Models.Domain;
@@ -9,17 +11,32 @@ namespace WebProject.Controllers
     public class AirportController : Controller
     {
         private readonly DemoDbContext DemoDbContext;
-        public AirportController(DemoDbContext mvcDemoDbContext)
+
+        private readonly IStringLocalizer<AirportController> _localizer;
+
+        public AirportController(DemoDbContext mvcDemoDbContext, IStringLocalizer<AirportController> localizer)
         {
             this.DemoDbContext = mvcDemoDbContext;
+            _localizer = localizer;
         }
+
+
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            List<Airport> allAirports = await DemoDbContext.Airports.ToListAsync();
-            if(allAirports != null)
-            {
+                List<Airport> allAirports = await DemoDbContext.Airports.ToListAsync();
+            //ViewData["Havaalanı"] = _localizer["Havaalanı"];
+            @ViewData["Airport Mangement"] = _localizer["Airport Mangement"];
+            @ViewData["Adjustment"] = _localizer["Adjustment"];
+            @ViewData["Country Of Airport"] = _localizer["Country Of Airport"];
+            @ViewData["City Of Airport"] = _localizer["City Of Airport"];
+            @ViewData["IATA Code"] = _localizer["IATA Code"];
+            @ViewData["Airport Name"] = _localizer["Airport Name"];
+            @ViewData["Add an Airport"] = _localizer["Add an Airport"];
+            //@ViewData["Update & Delete"] = _localizer["Update & Delete"];
+            if (allAirports != null)
+            {   
                 ListWithAirport listWithAirport = new ListWithAirport
                 {
                     Airports = allAirports

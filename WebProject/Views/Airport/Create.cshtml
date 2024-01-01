@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 @model WebProject.Models.ListWithAirport;
@@ -19,17 +21,17 @@
     <div class="container-fluid">
         <div class="row mb-4">
             <div class="col-sm-6">
-                <h2 class="m-0 pb-1">Airport Mangement</h2>
-                <h5 class="m-0" style="color: #77777778"> Adding, Updating Airports</h5>
+                <h2 class="m-0 pb-1">@ViewData["Airport Mangement" ] </h2>
+                <h5 class="m-0" style="color: #77777778"> @Localizer[ " Adding, Updating Airports"]</h5>
             </div>
             <!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right" style="background-color: #f4f6f9;">
                     <a asp-controller="Airport" asp-action="Create">
-                        <li class="breadcrumb-item text-primary">Airport</li>
+                    <li class="breadcrumb-item text-primary">@ViewData["Havaalanı"]</li>
                     </a>
                     <li class="breadcrumb-item text-primary"></li>
-                    <li class="breadcrumb-item active">Update & Delete</li>
+                    <li class="breadcrumb-item active">@Localizer[ "Update & Delete" ]</li>
                 </ol>
             </div>
             <!-- /.col -->
@@ -45,12 +47,12 @@
             <div class="col-12">
                 <div class="card card-default mt-3">
                     <div class="card-header">
-                        <h3 class="card-title">Newly Added Airports</h3>
+                        <h3 class="card-title">@Localizer[ "Newly Added Airports" ]</h3>
 
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
                                 <button type="button" class="btn btn-update float-right" data-toggle="modal" data-target="#modal-default" style="font-size: 100%">
-                                    <i class="fas fa-plus"></i> Add an Airport
+                                    <i class="fas fa-plus"></i>@ViewData[ "Add an Airport" ]
                                 </button>
                             </div>
                         </div>
@@ -60,11 +62,11 @@
                         <table class="table table-head-fixed text-nowrap m-0">
                             <thead>
                                 <tr>
-                                    <th style="background-color: #19283f">IATA Code</th>
-                                    <th style="background-color: #19283f">Airport Name</th>
-                                    <th style="background-color: #19283f">City Of Airport</th>
-                                    <th style="background-color: #19283f">Country Of Airport</th>
-                                    <th style="background-color: #19283f">Adjustment</th>
+                                    <th style="background-color: #19283f">@ViewData["IATA Code" ]</th>
+                                    <th style="background-color: #19283f">@ViewData["Airport Name"]</th>
+                                    <th style="background-color: #19283f">@ViewData["City Of Airport"]</th>
+                                    <th style="background-color: #19283f">@ViewData["Country Of Airport"]</th>
+                                    <th style="background-color: #19283f">@ViewData["Adjustment"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -112,31 +114,31 @@
                             <div class="row" style="margin:0">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label asp-for="Airport.IATACode" class="small mb-1">IATA Code (This section optional)</label>
+                                        <label asp-for="Airport.IATACode" class="small mb-1">@Localizer[ "IATA Code"] (This section optional)</label>
                                         <input asp-for="Airport.IATACode" class="form-control" type="text" value="LHR" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="Airport.AirportName" class="small mb-1">Airport Name</label>
+                                        <label asp-for="Airport.AirportName" class="small mb-1">@Localizer[ "Airport Name"]</label>
                                         <input asp-for="Airport.AirportName" class="form-control" type="text" />
                                         <span asp-validation-for="Airport.AirportName" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
-                                        <label asp-for="Airport.CityOfAirport" class="small mb-1">City Of Airport</label>
+                                        <label asp-for="Airport.CityOfAirport" class="small mb-1">@Localizer[ "City Of Airport"]</label>
                                         <input asp-for="Airport.CityOfAirport" class="form-control" type="text" />
                                         <span asp-validation-for="Airport.CityOfAirport" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label  class="small mb-1">Reservation Status</label>
+                                        <label  class="small mb-1">@Localizer[ "Reservation Status"]</label>
                                         <select  id="ticketClass" class="form-control select2 text-danger" style="width: 100%;" disabled >
                                             <option value="0" selected>False</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label asp-for="Airport.CountryOfAirport" class="small mb-1">Country Of Airport</label>
+                                        <label asp-for="Airport.CountryOfAirport" class="small mb-1">@Localizer[ "Country Of Airport"]</label>
                                         <input asp-for="Airport.CountryOfAirport" class="form-control" type="text" />
                                         <span asp-validation-for="Airport.CountryOfAirport" class="text-danger"></span>
                                     </div>
@@ -144,8 +146,8 @@
                             </div>
                         </div>
                         <div class="modal-footer justify-content-end">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" id="addToPlaneButton" class="btn btn-update">Add Airport</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">@Localizer[ "Close"]</button>
+                            <button type="submit" id="addToPlaneButton" class="btn btn-update">@Localizer[ "Add Airport"]</button>
                         </div>
                     </form>
                 </div>
@@ -173,37 +175,37 @@
                             <div class="row" style="margin:0">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label asp-for="Airport.IATACode" class="small mb-1">IATA Code</label>
+                                        <label asp-for="Airport.IATACode" class="small mb-1">@Localizer[ "IATA Code"]</label>
                                         <input asp-for="Airport.IATACode" id="modal-IATACode" class="form-control" type="text" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="Airport.AirportName" class="small mb-1">Airport Name</label>
+                                        <label asp-for="Airport.AirportName" class="small mb-1">@Localizer[ "Airport Name"]</label>
                                         <input asp-for="Airport.AirportName" id="modal-name" class="form-control" type="text" />
                                     </div>
                                     <div class="form-group">
-                                        <label asp-for="Airport.CityOfAirport" class="small mb-1">City Of Airport</label>
+                                        <label asp-for="Airport.CityOfAirport" class="small mb-1">@Localizer[ "City Of Airport"]</label>
                                         <input asp-for="Airport.CityOfAirport" id="modal-city" class="form-control" type="text" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="small mb-1">Reservation Status</label>
+                                        <label class="small mb-1">@Localizer[ "Reservation Status"]</label>
                                         <select id="ticketClass" class="form-control select2 text-danger" style="width: 100%;" disabled>
                                             <option value="0" selected>False</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label asp-for="Airport.CountryOfAirport" class="small mb-1">Country Of Airport</label>
+                                        <label asp-for="Airport.CountryOfAirport" class="small mb-1">@Localizer[ "Country Of Airport"]</label>
                                         <input asp-for="Airport.CountryOfAirport" id="modal-country" class="form-control" type="text" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer justify-content-end">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" id="addToPlaneButton" class="btn btn-update">Update Airport</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">@Localizer[ "Close"]</button>
+                            <button type="submit" id="addToPlaneButton" class="btn btn-update">@Localizer[ "Update Airport"]</button>
                         </div>
                     </form>
                 </div>
