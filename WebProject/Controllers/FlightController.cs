@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Numerics;
 using WebProject.Data;
 using WebProject.Models;
 using WebProject.Models.Domain;
@@ -31,6 +32,10 @@ namespace WebProject.Controllers
         {
             if(model != null && model.Flight != null)
             {
+                //set available seat of flight
+                model.Flight.TotalSeats = DemoDbContext.Planes.Where(x => x.PlaneID == model.Flight.PlaneId)
+                                                    .Select(x => x.ReservedSeats).Single();
+
                 await DemoDbContext.Flights.AddAsync(model.Flight);
                 await DemoDbContext.SaveChangesAsync();
 

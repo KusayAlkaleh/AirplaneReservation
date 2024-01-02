@@ -20,7 +20,7 @@ namespace WebProject.Models.Domain
         public string OwnerCompany { get; set; }
 
         [Required]
-        public int? AvailableSeats { get; set; }
+        public int AvailableSeats { get; set; }
 
         [Required]
         public int ReservedSeats { get; set; }

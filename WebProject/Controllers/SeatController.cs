@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebProject.Data;
 using WebProject.Models;
+using WebProject.Models.Domain;
 
 namespace WebProject.Controllers
 {
@@ -38,6 +39,16 @@ namespace WebProject.Controllers
                 
                 getInformationPlane.ReservedSeats++;
                 getInformationPlane.AvailableSeats--;
+
+                // update flight seats
+                var flightInfo = await DemoDbContext.Flights.FirstOrDefaultAsync(x => x.PlaneId == getInformationPlane.PlaneID);
+                if(flightInfo != null)
+                {
+                    flightInfo.TotalSeats++;
+                    DemoDbContext.Flights.Update(flightInfo);
+                }
+
+
                 DemoDbContext.Planes.Update(getInformationPlane);
                 await DemoDbContext.Seats.AddAsync(model.Seat);
                 await DemoDbContext.SaveChangesAsync();
