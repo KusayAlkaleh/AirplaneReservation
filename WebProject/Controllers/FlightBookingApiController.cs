@@ -4,6 +4,7 @@ using WebProject.Models;
 using WebProject.Data;
 using WebProject.Models.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebProject.Controllers
 {
@@ -40,47 +41,47 @@ namespace WebProject.Controllers
             return flight;
         }
 
+        // POST: api/FlightBookingApi
         [HttpPost]
-        public async Task<Reservation> PostFlight([FromBody] Reservation reservation)
+        public async Task<IActionResult> Post([FromBody] Reservation reservation)
         {
-            var a = 2;
+            if(reservation == null)
+                return NotFound();
 
             DemoDbContext.Reservation.Add(reservation);
             await DemoDbContext.SaveChangesAsync();
 
-            Reservation res = new Reservation();
-
-            return res;
+            return Ok();
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutFlight(int id, Flight flight)
-        //{
-        //    if (id != flight.FlightID)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutFlight(int id, Flight flight)
+        {
+            if (id != flight.FlightID)
+            {
+                return BadRequest();
+            }
 
-        //    DemoDbContext.Entry(flight).State = EntityState.Modified;
+            DemoDbContext.Entry(flight).State = EntityState.Modified;
 
-        //    try
-        //    {
-        //        await DemoDbContext.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!FlightExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            try
+            {
+                await DemoDbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (flight == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFlight(int id)

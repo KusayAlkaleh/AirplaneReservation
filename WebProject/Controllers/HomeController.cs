@@ -64,6 +64,8 @@ namespace WebProject.Controllers
             allFlights = JsonConvert.DeserializeObject<List<Flight>>(jsonResponse);
 
             // get flight info based on give start, arrival and date flight
+            if (allFlights == null)
+                return NotFound();
             var  allFlightsInfo = allFlights.Where(x => x.StartingPoint == model.StartAirport &&
                                               x.ArrivingPoint == model.ArrivalAirport &&
                                               x.ArrivalDate == model.DateOfFlight).ToList();
@@ -82,14 +84,20 @@ namespace WebProject.Controllers
             return View(flightsModel);
         }
 
-        
+
         public async Task<IActionResult> BuySeat(int id)
         {
+
+            Thread.Sleep(5000);
+
             // get user id from database
             var idOfUser = await _userManager.GetUserAsync(User);
 
             // get flight information from database
-            var flightInformation = DemoDbContext.Flights.Where(x => x.FlightID == id).Single();
+            var flightInformation = await DemoDbContext.Flights.FirstOrDefaultAsync(x => x.FlightID == id);
+
+            if (flightInformation == null)
+                return NotFound();
 
             // get empty seat id from database
             var seatsInformation = await DemoDbContext.Seats.Where(x => x.PlaneId == flightInformation.PlaneId &&
@@ -104,7 +112,6 @@ namespace WebProject.Controllers
                     break;
                 }
             }
-
 
             // creat a new reveseration
             HttpClient client = new HttpClient();
@@ -129,20 +136,20 @@ namespace WebProject.Controllers
             // Make the POST request
             var response = await client.PostAsync(apiUrl, content);
 
-            // update total seat in flight
-            flightInformation.TotalSeats--;
-            DemoDbContext.Flights.Update(flightInformation);
 
-            DemoDbContext.Reservation.Add(model);
-            await DemoDbContext.SaveChangesAsync();
+            // update total seat in flight
+            if(flightInformation != null)
+            {
+                flightInformation.TotalSeats--;
+                DemoDbContext.Flights.Update(flightInformation);
+
+                DemoDbContext.Reservation.Add(model);
+                await DemoDbContext.SaveChangesAsync();
+            }
 
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult Example()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
