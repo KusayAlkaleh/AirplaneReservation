@@ -39,8 +39,20 @@ namespace WebProject.Controllers
             {
                 Airports = await DemoDbContext.Airports.ToListAsync()
             };
-
-            return View(model);
+			@ViewData["Cabin Type"] = _localizer["Cabin Type"];
+			@ViewData["Departing Date"] = _localizer["Departing Date"];
+			@ViewData["Flying From"] = _localizer["Flying From"];
+			@ViewData["Flying To"] = _localizer["Flying To"];
+			@ViewData["Header"] = _localizer["Header"];
+			@ViewData["Multi-City"] = _localizer["Multi-City"];
+			@ViewData["Number Of Passenger"] = _localizer["Number Of Passenger"];
+			@ViewData["One way"] = _localizer["One way"];
+			@ViewData["Passenger Selection"] = _localizer["Passenger Selection"];
+			@ViewData["Price"] = _localizer["Price"];
+			@ViewData["Roundtrip"] = _localizer["Roundtrip"];
+			@ViewData["Sentence"] = _localizer["Sentence"];
+			@ViewData["Show Flights"] = _localizer["Show Flights"];
+			return View(model);
         }
 
         [HttpPost]
