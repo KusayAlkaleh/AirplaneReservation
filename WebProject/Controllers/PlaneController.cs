@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebProject.Data;
 using WebProject.Models;
-using WebProject.Models.Domain;
 
 namespace WebProject.Controllers
 {
@@ -25,6 +23,7 @@ namespace WebProject.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+           
 
             ListObjectPlane model = new ListObjectPlane
             {
