@@ -14,6 +14,7 @@ namespace WebProject.Controllers
             this.DemoDbContext = mvcDemoDbContext;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var reservationsInformation = await DemoDbContext.Reservation.ToListAsync();

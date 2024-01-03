@@ -20,14 +20,14 @@
     <div class="container-fluid">
         <div class="row mb-4">
             <div class="col-sm-6">
-                <h2 class="m-0 pb-1">Airport Mangement</h2>
+                <h2 class="m-0 pb-1">Reservation Mangement</h2>
                 <h5 class="m-0" style="color: #77777778">Adding, Updating Reser </h5>
             </div>
             <!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right" style="background-color: #f4f6f9;">
                     <a asp-controller="Reservation" asp-action="Index">
-                    <li class="breadcrumb-item text-primary">Flight</li>
+                    <li class="breadcrumb-item text-primary">Reservation</li>
                     </a>
                     <li class="breadcrumb-item text-primary"></li>
                     <li class="breadcrumb-item active">Update & Delete</li>
@@ -39,12 +39,12 @@
             <div class="col-12">
                 <div class="card card-default mt-3">
                     <div class="card-header">
-                        <h3 class="card-title">Newly Added Flights</h3>
+                        <h3 class="card-title">Newly Added Reservation</h3>
 
                         <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
+                            <div class="input-group input-group-sm" style="width: 160px;">
                                 <button type="button" class="btn btn-update float-right" data-toggle="modal" data-target="#modal-default" style="font-size: 100%">
-                                    <i class="fas fa-plus"></i> Add an Airport
+                                    <i class="fas fa-plus"></i> Add Reservation
                                 </button>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                                 {
                                     <tr>
                                         <td>@reservation.ReservationsID</td>
-                                        <td>@reservation.AppUser</td>
+                                        <td>@reservation.AppUserId</td>
                                         <td>@reservation.FightID</td>
                                         <td>@reservation.SeatID</td>
                                         <td>@reservation.ReservationDate</td>

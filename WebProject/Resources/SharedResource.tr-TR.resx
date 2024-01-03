@@ -120,6 +120,9 @@
   <data name="about" xml:space="preserve">
     <value>Hakkında</value>
   </data>
+  <data name="admin" xml:space="preserve">
+    <value>Admin Paneli</value>
+  </data>
   <data name="booking" xml:space="preserve">
     <value>Rezervasyon</value>
   </data>

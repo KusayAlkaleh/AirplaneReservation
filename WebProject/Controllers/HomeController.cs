@@ -155,6 +155,11 @@ namespace WebProject.Controllers
                 if(item.ReservationStatus == false)
                 {
                     idOfSeat = item.SeatID;
+                    item.ReservationStatus = true;
+
+                    DemoDbContext.Seats.Update(item);
+                    DemoDbContext.SaveChanges();
+
                     break;
                 }
             }
