@@ -27,8 +27,8 @@ namespace WebProject.Controllers
             return View(reservationsInformation);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Index(int resId)
+        
+        public async Task<IActionResult> Delete(int resId)
         {
             var reservationsInformation = await DemoDbContext.Reservation.FirstOrDefaultAsync(x=> x.ReservationsID == resId);
 
