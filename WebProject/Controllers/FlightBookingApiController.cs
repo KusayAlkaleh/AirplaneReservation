@@ -10,7 +10,6 @@ namespace WebProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "admin")]
     public class FlightBookingApiController : ControllerBase
     {
         private readonly DemoDbContext DemoDbContext;
