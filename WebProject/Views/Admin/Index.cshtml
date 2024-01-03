@@ -156,7 +156,7 @@
                                     <label for="todoCheck1"></label>
                                 </div>
                                 <!-- todo text -->
-                                <span class="text">Design a nice theme</span>
+                                <span class="text">Boeing 747</span>
                                 <!-- Emphasis label -->
                                 <small class="badge badge-danger"><i class="fa-solid fa-location-crosshairs"></i> First Class</small>
                                 <small class="badge badge-success"><i class="fa-solid fa-location-crosshairs"></i> Business Class</small>
@@ -172,11 +172,11 @@
                                            value=""
                                            name="todo2"
                                            id="todoCheck2"
-                                           checked />
+                                            />
                                     <label for="todoCheck2"></label>
                                 </div>
-                                <span class="text">Make the theme responsive</span>
-                                <small class="badge badge-info"><i class="far fa-clock"></i> 4 hours</small>
+                                <span class="text">Airbus A380</span>
+                                <small class="badge badge-primary"><i class="fa-solid fa-location-crosshairs"></i> Economy Class</small>
                                 <div class="tools">
                                     <i class="fas fa-edit"></i>
                                     <i class="fas fa-trash-o"></i>
@@ -190,9 +190,10 @@
                                            id="todoCheck3" />
                                     <label for="todoCheck3"></label>
                                 </div>
-                                <span class="text">Let theme shine like a star</span>
-                                <small class="badge badge-warning"><i class="far fa-clock"></i> 1 day</small>
+                                <span class="text">Embraer E175</span>
+                                <small class="badge badge-success"><i class="fa-solid fa-location-crosshairs"></i> Business Class</small>
                                 <small class="badge badge-primary"><i class="fa-solid fa-location-crosshairs"></i> Economy Class</small>
+                                <small class="badge badge-danger"><i class="fa-solid fa-location-crosshairs"></i> First Class</small>
                                 <div class="tools">
                                     <i class="fas fa-edit"></i>
                                     <i class="fas fa-trash-o"></i>
@@ -206,7 +207,7 @@
                                            id="todoCheck4" />
                                     <label for="todoCheck4"></label>
                                 </div>
-                                <span class="text">Let theme shine like a star</span>
+                                <span class="text">Bombardier Q400</span>
                                 <small class="badge badge-success"<i class="fa-solid fa-location-crosshairs"></i> Business Class</small>
                                 <div class="tools">
                                     <i class="fas fa-edit"></i>
@@ -221,7 +222,8 @@
                                            id="todoCheck5" />
                                     <label for="todoCheck5"></label>
                                 </div>
-                                <span class="text">Check your messages and notifications</span>
+                                <span class="text">AirDelay Predictor X1</span>
+                                <small class="badge badge-success"<i class="fa-solid fa-location-crosshairs"></i> Business Class</small>
                                 <small class="badge badge-primary"><i class="fa-solid fa-location-crosshairs"></i> Economy Class</small>
                                 <div class="tools">
                                     <i class="fas fa-edit"></i>
@@ -236,8 +238,9 @@
                                            id="todoCheck6" />
                                     <label for="todoCheck6"></label>
                                 </div>
-                                <span class="text">Let theme shine like a star</span>
-                                <small class="badge badge-secondary"><i class="far fa-clock"></i> 1 month</small>
+                                <span class="text">Celestial Voyager 2000</span>
+                                <small class="badge badge-danger"><i class="fa-solid fa-location-crosshairs"></i> First Class</small>
+                                <small class="badge badge-success"<i class="fa-solid fa-location-crosshairs"></i> Business Class</small>
                                 <div class="tools">
                                     <i class="fas fa-edit"></i>
                                     <i class="fas fa-trash-o"></i>
@@ -249,7 +252,9 @@
                     <div class="card-footer clearfix">
                         <button type="button" class="btn float-right">
                             <i class="fas fa-plus"></i> 
-                            Add New Plane
+                            <a asp-controller="Plane" asp-action="Create">
+                                Add New Plane
+                            </a>
                         </button>
                     </div>
                 </div>

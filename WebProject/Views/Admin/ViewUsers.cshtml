@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-@model List<WebProject.Models.Domain.User>;
+@model List<WebProject.Models.Domain.ApplicationUser>;
 
 <div class="container">
     <div class="row">
@@ -39,7 +39,7 @@
                                 }
 
                                 // generate Password with hidden
-                                string pass = user.Password;
+                                string pass = user.PasswordHash.Substring(0, 7);
 
                                 int charsToMask = Math.Max(0, pass.Length - 3);
 

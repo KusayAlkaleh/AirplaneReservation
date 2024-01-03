@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebProject.Data;
 using WebProject.Models;
-using WebProject.Models.Domain;
 
 namespace WebProject.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class PlaneController : Controller
     {
         private readonly DemoDbContext DemoDbContext;
@@ -23,6 +23,7 @@ namespace WebProject.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+           
 
             ListObjectPlane model = new ListObjectPlane
             {

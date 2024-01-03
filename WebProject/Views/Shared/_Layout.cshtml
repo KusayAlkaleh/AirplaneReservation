@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -30,31 +32,71 @@
                         @if (User.IsInRole("user"))
                         {
                             <li class="nav-item p-2 p-lg-3">
-                                <a class="nav-link" asp-controller="User" asp-action="Profile">My Profile</a>
+                                <a class="nav-link" asp-controller="User" asp-action="Profile">
+                                    @_localization.Getkey("myProfile").Value
+                                </a>
                             </li>
                         }
                         <li class="nav-item p-2 p-lg-3">
-                            <a asp-controller="Home" asp-action="Index"  class="nav-link active" aria-current="page">Home</a>
+                            <a asp-controller="Home" asp-action="Index"  class="nav-link active" aria-current="page">
+                                @_localization.Getkey("home").Value
+                            </a>
                         </li>
                         @if(User.IsInRole("admin"))
                         {
                             <li class="nav-item p-2 p-lg-3">
-                                <a asp-controller="Admin" asp-action="Index" class="nav-link" aria-current="page">Admin Panel</a>
+                                <a asp-controller="Admin" asp-action="Index" class="nav-link" aria-current="page">
+                                    @_localization.Getkey("admin").Value
+                                </a>
                             </li>
                         }
                         <li class="nav-item p-2 p-lg-3">
-                            <a asp-controller="Home" asp-action="Booking" class="nav-link" aria-current="page">Booking</a>
+                            <a asp-controller="Home" asp-action="Booking" class="nav-link" aria-current="page">
+                                @_localization.Getkey("booking").Value
+                            </a>
                         </li>
                         <li class="nav-item p-2 p-lg-3">
-                            <a class="nav-link" >Services</a>
+                            <a class="nav-link" >
+                                @_localization.Getkey("service").Value
+                            </a>
                         </li>
                         <li class="nav-item p-2 p-lg-3">
-                            <a class="nav-link" >About</a>
+                            <a class="nav-link" >
+                                @_localization.Getkey("about").Value
+                            </a>
                         </li>
                         <li class="nav-item p-2 p-lg-3">
-                            <a class="nav-link" >Contanact</a>
+                            <a class="nav-link" >
+                                @_localization.Getkey("contanact").Value
+                            </a>
                         </li>
-                        
+                        <li class="nav-item p-2 p-lg-3">
+                            <div class="select-menu">
+                                <div class="select-btn">
+                                    <a class="nav-link btn btn-primary dropdown-toggle">
+                                        @_localization.Getkey("language").Value
+                                    </a>
+                                </div>
+                                <ul class="options">
+                                    <li class="option">
+                                        <a asp-controller="Home"
+                                           asp-action="ChangeLanguage"
+                                           asp-route-culture="en-US"
+                                           class="dropdown-item">
+                                            English
+                                        </a>
+                                    </li>
+                                    <li class="option">
+                                        <a asp-controller="Home"
+                                           asp-action="ChangeLanguage"
+                                           asp-route-culture="tr-TR"
+                                           class="dropdown-item">
+                                            Türkçe
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                     <div class="search ps-3 pe-3 d-none d-lg-block">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -63,12 +105,14 @@
                     {
                         <a class="btn btn-outline-danger" asp-controller="Login" asp-action="Logout" asp-action="Index">
                             <i class="fa-solid fa-right-from-bracket"></i>
-                            Logout
+                            @_localization.Getkey("logout").Value
                         </a>
                         
                     }
                     else {
-                        <a class="main-btn" asp-controller="Login" asp-action="Login">Login</a>
+                        <a class="main-btn" asp-controller="Login" asp-action="Login">
+                            @_localization.Getkey("login").Value
+                        </a>
                     }
                 </div>
             </div>
@@ -152,6 +196,25 @@
             </div>
         </div>
     </div>
+    <script>
+        const optionMenu = document.querySelector(".select-menu"),
+            selectBtn = optionMenu.querySelector(".select-btn"),
+            options = optionMenu.querySelectorAll(".option"),
+            sBtn_text = optionMenu.querySelector(".sBtn-text");
+
+        selectBtn.addEventListener("click", () =>
+            optionMenu.classList.toggle("active")
+        );
+
+        options.forEach((option) => {
+            option.addEventListener("click", () => {
+                let selectedOption = option.querySelector(".option-text").innerText;
+                sBtn_text.innerText = selectedOption;
+
+                optionMenu.classList.remove("active");
+            });
+        });
+    </script>
     
     <!-- Jquery library -->
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>

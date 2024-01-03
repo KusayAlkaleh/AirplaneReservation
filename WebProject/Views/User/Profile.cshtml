@@ -66,7 +66,7 @@
                             </div>
                             <div class="about">
                                 <h5>About</h5>
-                                <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+                                <p>Welcome, @Model.FirstName. In this page you can editing your profile</p>
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form asp-controller="User" asp-action="Profile" method="post" >
+                        <form asp-controller="User" asp-action="Profile" method="post">
                             <div class="mb-3">
                                 <input asp-for="Id" value="@Model.Id" type="hidden" />
                                 <label asp-for="@Model.UserName" class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>

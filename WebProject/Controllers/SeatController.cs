@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebProject.Data;
 using WebProject.Models;
@@ -6,6 +7,7 @@ using WebProject.Models.Domain;
 
 namespace WebProject.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class SeatController : Controller
     {
         private readonly DemoDbContext DemoDbContext;
