@@ -26,5 +26,20 @@ namespace WebProject.Controllers
 
             return View(reservationsInformation);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(int resId)
+        {
+            var reservationsInformation = await DemoDbContext.Reservation.FirstOrDefaultAsync(x=> x.ReservationsID == resId);
+
+            if (reservationsInformation == null)
+            {
+                return NotFound();
+            }
+            DemoDbContext.Reservation.Remove(reservationsInformation);
+            await DemoDbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
     }
 }
